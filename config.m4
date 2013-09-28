@@ -10,7 +10,9 @@ if test -z "$PHP_LIBXML_DIR"; then
 fi
 
 if test "$PHP_XMLDIFF" != "no"; then
-  PHP_REQUIRE_CXX()
+  PHP_REQUIRE_CXX
+  dnl AC_LANG_CPLUSPLUS
+  dnl PHP_ADD_LIBRARY(stdc++,,XMLDIFF_SHARED_LIBADD)
 
   if test "$PHP_LIBXML" = "no"; then
     AC_MSG_ERROR([XMLDiff extension requires LIBXML extension])
@@ -30,17 +32,18 @@ if test "$PHP_XMLDIFF" != "no"; then
     diffmark/lib/xdoc.cc \
     diffmark/lib/xutil.cc"
 
+
   PHP_SETUP_LIBXML(XMLDIFF_SHARED_LIBADD, [
     AC_DEFINE(HAVE_XMLDIFF,1,[ ])
+    PHP_SUBST(XMLDIFF_SHARED_LIBADD)
     PHP_NEW_EXTENSION(xmldiff, $PHP_DIFFMARK_SOURCES xmldiff.cpp, $ext_shared)
     PHP_ADD_EXTENSION_DEP(xmldiff, dom, true)
-    PHP_ADD_EXTENSION_DEP(xmldiff, libexml, true)
+    PHP_ADD_EXTENSION_DEP(xmldiff, libxml, true)
     PHP_ADD_BUILD_DIR($ext_builddir/diffmark/lib)
     PHP_ADD_INCLUDE($ext_srcdir/diffmark/lib)
     PHP_ADD_INCLUDE($ext_builddir/diffmark/lib)
     PHP_ADD_INCLUDE($ext_srcdir/simplexml_compat)
     PHP_ADD_INCLUDE($ext_builddir/simplexml_compat)
-    PHP_SUBST(XMLDIFF_SHARED_LIBADD)
     PHP_INSTALL_HEADERS([ext/xmldiff/php_xmldiff.h])
     PHP_INSTALL_HEADERS([diffmark/lib/compare.hh])
     PHP_INSTALL_HEADERS([diffmark/lib/compareimpl.hh])
@@ -58,4 +61,5 @@ if test "$PHP_XMLDIFF" != "no"; then
   ], [
     AC_MSG_ERROR([xml2-config not found. Please check your libxml2 installation.])
   ])
+
 fi
