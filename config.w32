@@ -1,0 +1,43 @@
+// $Id$
+// vim:ft=javascript
+
+ARG_ENABLE("xmldiff", "enable xmldiff support", "no");
+
+if (PHP_XMLDIFF != "no") {
+		
+	if(PHP_LIBXML != "no" && PHP_DOM != "no" &&
+			CHECK_HEADER_ADD_INCLUDE("xdoc.hh", "CFLAGS_XMLDIFF", PHP_XMLDIFF + ";" + configure_module_dirname + "\\diffmark\\lib")
+	) {
+
+		EXTENSION("xmldiff", "xmldiff.cpp");
+
+		ADD_SOURCES(configure_module_dirname + "\\diffmark\\lib", " \
+			compare.cc \
+			diff.cc \
+			link.cc \
+			merge.cc \
+			namespacecollector.cc \
+			nspace.cc \
+			target.cc \
+			xbuffer.cc \
+			xdoc.cc \
+			xutil.cc",
+			"xmldiff"
+		);
+
+		if (!ADD_EXTENSION_DEP("xmldiff", "dom", true)) {
+			MESSAGE("\tDOM support in xmldiff disabled");
+		}
+		if (!ADD_EXTENSION_DEP("xmldiff", "libxml", true)) {
+			ERROR("\tlibxml support is required for xmldiff, but couldn't be enabled");
+		}
+
+		AC_DEFINE("HAVE_XMLDIFF", 1, "Have xmldiff extension");
+
+		ADD_FLAG("CFLAGS_XMLDIFF", ' /I diffmark/lib /EHsc /D ZEND_WIN32_FORCE_INLINE ');
+		ADD_FLAG("LDFLAGS_TRADER", ' /libpath:"diffmark/lib" ');
+	} else {
+		WARNING("xmldiff not enabled; libraries and headers not found");
+	}
+}
+
