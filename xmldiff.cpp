@@ -320,9 +320,9 @@ PHP_XMLDIFF_API xmlDocPtr
 php_xmldiff_do_diff_doc(xmlDocPtr fromXmlDoc, xmlDocPtr toXmlDoc, struct ze_xmldiff_obj *zxo TSRMLS_DC)
 {/*{{{*/
 	xmlDocPtr retDoc = NULL;
+	XDoc *xFrom = NULL, *xTo = NULL, xDiff;
 
 	try {
-		XDoc *xFrom, *xTo, xDiff;
 
 		xFrom = new XDoc(fromXmlDoc);
 		xTo = new XDoc(toXmlDoc);
@@ -331,8 +331,16 @@ php_xmldiff_do_diff_doc(xmlDocPtr fromXmlDoc, xmlDocPtr toXmlDoc, struct ze_xmld
 			xDiff = php_xmldiff_do_diff(*xFrom, *xTo, zxo TSRMLS_CC);
 			retDoc = xDiff.yank();
 		}
-	} catch (string &x) {
-		php_xmldiff_throw_exception_no_va(x.c_str(), PHP_XMLDIFF_THROW_DIFF TSRMLS_CC);
+
+	} catch (std::bad_alloc &x) {
+		if (NULL != xFrom) {
+			delete xFrom;
+		}
+		if (NULL != xTo) {
+			delete xTo;
+		}
+
+		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_DIFF TSRMLS_CC);
 
 		return NULL;
 	}
@@ -344,9 +352,9 @@ PHP_XMLDIFF_API xmlDocPtr
 php_xmldiff_do_merge_doc(xmlDocPtr srcXmlDoc, xmlDocPtr diffXmlDoc, struct ze_xmldiff_obj *zxo TSRMLS_DC)
 {/*{{{*/
 	xmlDocPtr retDoc = NULL;
+	XDoc *xSrc = NULL, *xDiff = NULL, xMerge;
 
 	try {
-		XDoc *xSrc, *xDiff, xMerge;
 
 		xSrc = new XDoc(srcXmlDoc);
 		xDiff = new XDoc(diffXmlDoc);
@@ -355,8 +363,15 @@ php_xmldiff_do_merge_doc(xmlDocPtr srcXmlDoc, xmlDocPtr diffXmlDoc, struct ze_xm
 			xMerge = php_xmldiff_do_merge(*xSrc, *xDiff, zxo TSRMLS_CC);
 			retDoc = xMerge.yank();
 		}
-	} catch (string &x) {
-		php_xmldiff_throw_exception_no_va(x.c_str(), PHP_XMLDIFF_THROW_MERGE TSRMLS_CC);
+	} catch (std::bad_alloc &x) {
+		if (NULL != xSrc) {
+			delete xSrc;
+		}
+		if (NULL != xDiff) {
+			delete xDiff;
+		}
+
+		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_MERGE TSRMLS_CC);
 
 		return NULL;
 	}
