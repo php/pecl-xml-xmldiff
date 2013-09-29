@@ -138,6 +138,7 @@ ZEND_END_MODULE_GLOBALS(xmldiff)
 #define PHP_XMLDIFF_THROW_MERGE (1 << 1L)
 #define PHP_XMLDIFF_THROW_DIFF (1 << 2L)
 #define PHP_XMLDIFF_THROW_NOMEM (1 << 3L)
+#define PHP_XMLDIFF_THROW_BADALLOC (1 << 4L)
 
 PHP_XMLDIFF_API void
 php_xmldiff_throw_exception_no_va(const char *msg, long code TSRMLS_DC);

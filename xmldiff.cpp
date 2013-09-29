@@ -340,7 +340,11 @@ php_xmldiff_do_diff_doc(xmlDocPtr fromXmlDoc, xmlDocPtr toXmlDoc, struct ze_xmld
 			delete xTo;
 		}
 
-		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_DIFF TSRMLS_CC);
+		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_BADALLOC TSRMLS_CC);
+
+		return NULL;
+	} catch (std::string &x) {
+		php_xmldiff_throw_exception_no_va(x.c_str(), PHP_XMLDIFF_THROW_DIFF TSRMLS_CC);
 
 		return NULL;
 	}
@@ -371,7 +375,11 @@ php_xmldiff_do_merge_doc(xmlDocPtr srcXmlDoc, xmlDocPtr diffXmlDoc, struct ze_xm
 			delete xDiff;
 		}
 
-		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_MERGE TSRMLS_CC);
+		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_BADALLOC TSRMLS_CC);
+
+		return NULL;
+	} catch (std::string &x) {
+		php_xmldiff_throw_exception_no_va(x.c_str(), PHP_XMLDIFF_THROW_MERGE TSRMLS_CC);
 
 		return NULL;
 	}
