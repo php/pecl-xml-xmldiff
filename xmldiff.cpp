@@ -420,7 +420,6 @@ php_xmldiff_do_merge_file(const char *src, const char *diff, struct ze_xmldiff_o
 		XDoc xSrc = xutil::parse_file(src);
 		XDoc xDiff = xutil::parse_file(diff);
 		XDoc xMerge;
-		xmlChar *mem = NULL;
 		int size = 0;
 
 		if (NULL != xSrc && NULL != xDiff) {
