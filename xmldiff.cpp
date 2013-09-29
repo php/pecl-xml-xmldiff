@@ -41,8 +41,9 @@ zend_object_handlers default_xmldiff_handlers;
 ZEND_DECLARE_MODULE_GLOBALS(xmldiff)
 */
 
-/* True global resources - no need for thread safety here */
+/* True global resources - no need for thread safety here
 static int le_xmldiff;
+*/
 
 static zend_class_entry *XMLDiffBase_ce;
 static zend_class_entry *XMLDiffDOM_ce;
