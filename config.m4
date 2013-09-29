@@ -1,8 +1,8 @@
 dnl $Id$
 dnl config.m4 for extension xmldiff
 
-PHP_ARG_ENABLE(xmldiff, whether to enable xmldiff support,
-[  --enable-xmldiff        Enable xmldiff support])
+PHP_ARG_WITH(xmldiff, for xmldiff support,
+[  --with-xmldiff          Include XMLDiff support])
 PHP_ARG_WITH(libdiffmark, whether to use system diffmark library,
 [  --with-libdiffmark=DIR  XMLDiff: diffmark install prefix], no, no)
 

@@ -1,7 +1,7 @@
 // $Id$
 // vim:ft=javascript
 
-ARG_ENABLE("xmldiff", "enable xmldiff support", "no");
+ARG_WITH("xmldiff", "enable xmldiff support", "no");
 
 if (PHP_XMLDIFF != "no") {
 		
