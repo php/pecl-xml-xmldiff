@@ -42,10 +42,9 @@ XDoc &XDoc::operator=(const XDoc &other)
 void XDoc::del_ref()
 {
     if (!(--*ref_cnt)) {
-		/* XXX avoid double free with simplexml */
-/*        if (doc) {
+	if (doc) {
 	    xmlFreeDoc(doc);
-	}*/
+	}
 
 	delete ref_cnt;
     }
