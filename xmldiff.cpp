@@ -258,6 +258,11 @@ PHP_MINFO_FUNCTION(xmldiff)
 	php_info_print_table_start();
 	php_info_print_table_header(2, "xmldiff support", "enabled");
 	php_info_print_table_header(2, "xmldiff version", PHP_XMLDIFF_VERSION);
+#ifdef HAVE_LIBDIFFMARK
+	php_info_print_table_header(2, "diffmark library", "system");
+#else
+	php_info_print_table_header(2, "diffmark library", "0.10 bundled");
+#endif
 	php_info_print_table_end();
 
 	/* Remove comments if you have entries in php.ini
