@@ -100,22 +100,18 @@ const zend_function_entry XMLDiffMemory_methods[] = {
 };
 /* }}} */
 
-#if ZEND_MODULE_API_NO >= 20050922
 static const zend_module_dep xmldiff_deps[] = {/*{{{*/
 	ZEND_MOD_REQUIRED("dom")
 	ZEND_MOD_REQUIRED("libxml")
 	{NULL, NULL, NULL}
 };/*}}}*/
-#endif
 
 /* {{{ xmldiff_module_entry
  */
 zend_module_entry xmldiff_module_entry = {
-#if ZEND_MODULE_API_NO >= 20010901
 	STANDARD_MODULE_HEADER_EX,
 	NULL,
 	xmldiff_deps,
-#endif
 	"xmldiff",
 	xmldiff_functions,
 	PHP_MINIT(xmldiff),
