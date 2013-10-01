@@ -259,6 +259,7 @@ PHP_MINFO_FUNCTION(xmldiff)
 #else
 	php_info_print_table_header(2, "diffmark library", "0.10 bundled");
 #endif
+	php_info_print_table_row(2, "Revision", "$Id$");
 	php_info_print_table_end();
 
 	/* Remove comments if you have entries in php.ini
