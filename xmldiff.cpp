@@ -584,7 +584,7 @@ PHP_METHOD(XMLDiffDOM, diff)
 	xmlCleanupParser();
 }/*}}}*/
 
-/*{{{ public DOMDocument XMLDiff\DOM::diff(DOMDocument $m, DOMDocument $to) */
+/*{{{ public DOMDocument XMLDiff\DOM::merge(DOMDocument $m, DOMDocument $to) */
 PHP_METHOD(XMLDiffDOM, merge)
 {
 	struct ze_xmldiff_obj *zxo;
