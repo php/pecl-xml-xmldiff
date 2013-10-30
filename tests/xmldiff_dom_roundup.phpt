@@ -16,8 +16,10 @@ for ($i = 0; $i < 24; ++$i) {
 
 	$opts = LIBXML_NOENT;
 	$from = new DOMDocument;
+	$from->preserveWhiteSpace = false;
 	$from->load($f, $opts);
 	$to = new DOMDocument;
+	$to->preserveWhiteSpace = false;
 	$to->load($t, $opts);
 
 	$diff = $zxo->diff($from, $to);
