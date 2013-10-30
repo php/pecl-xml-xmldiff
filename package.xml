@@ -10,10 +10,10 @@
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2013-10-01</date>
+	<date>2013-10-30</date>
 	<version>
-		<release>0.9.0</release>
-		<api>0.9.0</api>
+		<release>0.9.1</release>
+		<api>0.9.1</api>
 	</version>
 	<stability>
 		<release>stable</release>
@@ -21,11 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- Fixed compilation under VS2008 and below
-		- Fixed memory leaks and exception handling
-		- Improved the m4 script, system wide libdiffmark will be used if available (Remi Collet)
-		- General improvements (Remi Collet)
-		- RPMs are now available from Remi's repository
+		- Fixed libxml behavior change after diff/merge
 	</notes>
 	<contents>
 		<dir name="/">
@@ -280,6 +276,25 @@
 	<providesextension>xmldiff</providesextension>
 	<extsrcrelease />
 	<changelog>
+		<release>
+			<date>2013-10-01</date>
+			<version>
+				<release>0.9.0</release>
+				<api>0.9.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fixed compilation under VS2008 and below
+				- Fixed memory leaks and exception handling
+				- Improved the m4 script, system wide libdiffmark will be used if available (Remi Collet)
+				- General improvements (Remi Collet)
+				- RPMs are now available from Remi's repository
+			</notes>
+		</release>
 		<release>
 			<date>2013-09-28</date>
 			<version>
