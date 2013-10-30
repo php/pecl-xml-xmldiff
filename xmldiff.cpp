@@ -543,7 +543,7 @@ PHP_METHOD(XMLDiffDOM, diff)
 	zval *zfrom, *zto;
 	dom_object *from, *to;
 	xmlDocPtr fromXmlDoc, toXmlDoc, retDoc;
-	int domRetStatus;
+	int domRetStatus, old_keep_blanks;
 	xmlNodePtr retNode;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "oo", &zfrom, &zto) == FAILURE) {
@@ -558,7 +558,7 @@ PHP_METHOD(XMLDiffDOM, diff)
 		return;
 	}
 
-	xmlKeepBlanksDefault(0);
+	old_keep_blanks = xmlKeepBlanksDefault(0);
 
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
@@ -583,6 +583,8 @@ PHP_METHOD(XMLDiffDOM, diff)
 	php_xmldiff_set_out_dom_props(return_value TSRMLS_CC);
 
 	xmlCleanupParser();
+
+	xmlKeepBlanksDefault(old_keep_blanks);
 }/*}}}*/
 
 /*{{{ public DOMDocument XMLDiff\DOM::merge(DOMDocument $m, DOMDocument $to) */
@@ -592,7 +594,7 @@ PHP_METHOD(XMLDiffDOM, merge)
 	zval *zsrc, *zdiff;
 	dom_object *src, *diff;
 	xmlDocPtr srcXmlDoc, diffXmlDoc, retDoc;
-	int domRetStatus;
+	int domRetStatus, old_keep_blanks;
 	xmlNodePtr retNode;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "oo", &zsrc, &zdiff) == FAILURE) {
@@ -607,7 +609,7 @@ PHP_METHOD(XMLDiffDOM, merge)
 		return;
 	}
 
-	xmlKeepBlanksDefault(0);
+	old_keep_blanks = xmlKeepBlanksDefault(0);
 
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
@@ -632,6 +634,8 @@ PHP_METHOD(XMLDiffDOM, merge)
 	php_xmldiff_set_out_dom_props(return_value TSRMLS_CC);
 
 	xmlCleanupParser();
+
+	xmlKeepBlanksDefault(old_keep_blanks);
 }/* }}} */
 
 /*{{{ public string XMLDiff\File::diff(string $from, string $to) */
@@ -639,7 +643,7 @@ PHP_METHOD(XMLDiffFile, diff)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *from_fl, *to_fl, *ret;
-	int from_fl_len, to_fl_len;
+	int from_fl_len, to_fl_len, old_keep_blanks;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &from_fl, &from_fl_len, &to_fl, &to_fl_len) == FAILURE) {
 		return;
@@ -647,7 +651,7 @@ PHP_METHOD(XMLDiffFile, diff)
 
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
-	xmlKeepBlanksDefault(0);
+	old_keep_blanks = xmlKeepBlanksDefault(0);
 
 	ret = (char *)php_xmldiff_do_diff_file(from_fl, to_fl, zxo TSRMLS_CC);
 
@@ -659,6 +663,8 @@ PHP_METHOD(XMLDiffFile, diff)
 
 	xmlFree(ret);
 	xmlCleanupParser();
+
+	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
 
 /*{{{ public string XMLDiff\File::merge(string $src, string $diff) */
@@ -666,7 +672,7 @@ PHP_METHOD(XMLDiffFile, merge)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *src_fl, *diff_fl, *ret;
-	int src_fl_len, diff_fl_len;
+	int src_fl_len, diff_fl_len, old_keep_blanks;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &src_fl, &src_fl_len, &diff_fl, &diff_fl_len) == FAILURE) {
 		return;
@@ -674,7 +680,7 @@ PHP_METHOD(XMLDiffFile, merge)
 
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
-	xmlKeepBlanksDefault(0);
+	old_keep_blanks = xmlKeepBlanksDefault(0);
 
 	ret = (char *)php_xmldiff_do_merge_file(src_fl, diff_fl, zxo TSRMLS_CC);
 
@@ -686,6 +692,8 @@ PHP_METHOD(XMLDiffFile, merge)
 
 	xmlFree(ret);
 	xmlCleanupParser();
+
+	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
 
 /*{{{ public string XMLDiff\Memory::diff(string $from, string $to) */
@@ -693,7 +701,7 @@ PHP_METHOD(XMLDiffMemory, diff)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *from, *to, *ret;
-	int from_len, to_len;
+	int from_len, to_len, old_keep_blanks;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &from, &from_len, &to, &to_len) == FAILURE) {
 		return;
@@ -701,7 +709,7 @@ PHP_METHOD(XMLDiffMemory, diff)
 
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
-	xmlKeepBlanksDefault(0);
+	old_keep_blanks = xmlKeepBlanksDefault(0);
 
 	ret = (char *)php_xmldiff_do_diff_memory(from, from_len, to, to_len, zxo TSRMLS_CC);
 
@@ -713,6 +721,8 @@ PHP_METHOD(XMLDiffMemory, diff)
 
 	xmlFree(ret);
 	xmlCleanupParser();
+
+	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
 
 /*{{{ public string XMLDiff\Memory::merge(string $src, string $diff) */
@@ -720,7 +730,7 @@ PHP_METHOD(XMLDiffMemory, merge)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *src, *diff, *ret;
-	int src_len, diff_len;
+	int src_len, diff_len, old_keep_blanks;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &src, &src_len, &diff, &diff_len) == FAILURE) {
 		return;
@@ -728,7 +738,7 @@ PHP_METHOD(XMLDiffMemory, merge)
 
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
-	xmlKeepBlanksDefault(0);
+	old_keep_blanks = xmlKeepBlanksDefault(0);
 
 	ret = (char *)php_xmldiff_do_merge_memory(src, src_len, diff, diff_len, zxo TSRMLS_CC);
 
@@ -740,6 +750,8 @@ PHP_METHOD(XMLDiffMemory, merge)
 
 	xmlFree(ret);
 	xmlCleanupParser();
+
+	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
 
 /*
