@@ -577,7 +577,7 @@ PHP_METHOD(XMLDiffDOM, diff)
 	retNode = (xmlNodePtr)retDoc;
 
 	/* return the resulting dom object */
-	DOM_RET_OBJ_EX(retNode, &domRetStatus, NULL);
+	XMLDIFF_DOM_RET_OBJ(retNode, &domRetStatus, NULL);
 
 	/* set return object properties */
 	php_xmldiff_set_out_dom_props(return_value TSRMLS_CC);
@@ -628,7 +628,7 @@ PHP_METHOD(XMLDiffDOM, merge)
 	retNode = (xmlNodePtr)retDoc;
 
 	/* return the resulting dom object */
-	DOM_RET_OBJ_EX(retNode, &domRetStatus, NULL);
+	XMLDIFF_DOM_RET_OBJ(retNode, &domRetStatus, NULL);
 
 	/* set return object properties */
 	php_xmldiff_set_out_dom_props(return_value TSRMLS_CC);

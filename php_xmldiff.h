@@ -162,7 +162,14 @@ PHP_XMLDIFF_API xmlChar *
 php_xmldiff_do_merge_memory(const char *src, int src_len, const char *diff, int diff_len, struct ze_xmldiff_obj *zxo TSRMLS_DC);
 
 #if PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 3
-# define DOM_RET_OBJ_EX DOM_RET_OBJ
+#  define XMLDIFF_DOM_RET_OBJ DOM_RET_OBJ
+#elif PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION == 3 && PHP_RELEASE_VERSION > 6
+#  define XMLDIFF_DOM_RET_OBJ DOM_RET_OBJ_EX
+#else
+#  define XMLDIFF_DOM_RET_OBJ(obj, ret, domobject); do { \
+       zval *rv = NULL; \
+       DOM_RET_OBJ(rv, obj, ret, domobject); \
+     } while(0);
 #endif
 
 #endif	/* PHP_XMLDIFF_H */
