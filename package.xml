@@ -22,6 +22,7 @@
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
 		- Fixed libxml behavior change after diff/merge
+		- Fixed DOM compatibility for PHP 5.3.6 and below (Remi Collet)
 	</notes>
 	<contents>
 		<dir name="/">
