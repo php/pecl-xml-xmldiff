@@ -89,7 +89,7 @@ struct ze_xmldiff_obj {
 	char *nsurl;
 };
 
-#define PHP_XMLDIFF_VERSION "0.9.1"
+#define PHP_XMLDIFF_VERSION "1.0.0"
 
 PHP_MINIT_FUNCTION(xmldiff);
 PHP_MSHUTDOWN_FUNCTION(xmldiff);

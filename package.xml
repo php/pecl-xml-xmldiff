@@ -12,8 +12,8 @@
 	</lead>
 	<date>2013-10-30</date>
 	<version>
-		<release>0.9.1</release>
-		<api>0.9.1</api>
+		<release>1.0.0</release>
+		<api>1.0.0</api>
 	</version>
 	<stability>
 		<release>stable</release>
@@ -21,8 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- Fixed libxml behavior change after diff/merge
-		- Fixed DOM compatibility for PHP 5.3.6 and below (Remi Collet)
+		- some next note here
 	</notes>
 	<contents>
 		<dir name="/">
@@ -277,6 +276,22 @@
 	<providesextension>xmldiff</providesextension>
 	<extsrcrelease />
 	<changelog>
+		<release>
+			<date>2013-10-30</date>
+			<version>
+				<release>0.9.1</release>
+				<api>0.9.1</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fixed libxml behavior change after diff/merge
+				- Fixed DOM compatibility for PHP 5.3.6 and below (Remi Collet)
+			</notes>
+		</release>
 		<release>
 			<date>2013-10-01</date>
 			<version>
