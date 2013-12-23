@@ -12,9 +12,8 @@ if test -z "$PHP_LIBXML_DIR"; then
 fi
 
 if test "$PHP_XMLDIFF" != "no"; then
-  PHP_REQUIRE_CXX
-  dnl AC_LANG_CPLUSPLUS
-  dnl PHP_ADD_LIBRARY(stdc++,,XMLDIFF_SHARED_LIBADD)
+  PHP_REQUIRE_CXX()
+  PHP_ADD_LIBRARY(stdc++,,XMLDIFF_SHARED_LIBADD)
 
   if test "$PHP_LIBXML" = "no"; then
     AC_MSG_ERROR([XMLDiff extension requires LIBXML extension])
