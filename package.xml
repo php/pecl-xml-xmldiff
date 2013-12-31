@@ -10,10 +10,10 @@
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2013-10-30</date>
+	<date>2013-12-31</date>
 	<version>
-		<release>1.0.0</release>
-		<api>1.0.0</api>
+		<release>0.9.2</release>
+		<api>0.9.2</api>
 	</version>
 	<stability>
 		<release>stable</release>
@@ -21,7 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- some next note here
+		- fixed libstdc++ linking on linux
 	</notes>
 	<contents>
 		<dir name="/">
