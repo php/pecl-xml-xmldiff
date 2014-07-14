@@ -7,10 +7,27 @@ if (PHP_XMLDIFF != "no") {
 		
 	if(PHP_LIBXML != "no" &&
 		PHP_DOM != "no" &&
-		CHECK_HEADER_ADD_INCLUDE("xdoc.hh", "CFLAGS_XMLDIFF", PHP_XMLDIFF + ";" + configure_module_dirname + "\\diffmark\\lib")
+		CHECK_HEADER_ADD_INCLUDE("xdoc.hh", "CFLAGS_XMLDIFF", PHP_XMLDIFF + ";" + configure_module_dirname + "\\diffmark\\lib") &&
+		CHECK_LIB("libxml2_a_dll.lib;libxml2_a.lib", "xmldiff") &&
+		CHECK_LIB("libiconv_a.lib;iconv_a.lib;libiconv.lib;iconv.lib", "xmldiff") &&
+		CHECK_HEADER_ADD_INCLUDE("libxml/parser.h", "CFLAGS_XMLDIFF")
 	) {
 
 		EXTENSION("xmldiff", "xmldiff.cpp");
+		PHP_INSTALL_HEADERS("ext/xmldiff", "php_xmldiff.h");
+		PHP_INSTALL_HEADERS("ext/xmldiff/diffmark/lib", "diffmark/lib/compare.hh \
+			diffmark/lib/compareimpl.hh \
+			diffmark/lib/diff.hh \
+			diffmark/lib/lcs.hh \
+			diffmark/lib/lcsimpl.hh \
+			diffmark/lib/link.hh \
+			diffmark/lib/merge.hh \
+			diffmark/lib/namespacecollector.hh \
+			diffmark/lib/nspace.hh \
+			diffmark/lib/target.hh \
+			diffmark/lib/xbuffer.hh \
+			diffmark/lib/xdoc.hh \
+			diffmark/lib/xutil.hh");
 
 		ADD_SOURCES(configure_module_dirname + "\\diffmark\\lib", " \
 			compare.cc \
