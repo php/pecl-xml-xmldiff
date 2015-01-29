@@ -170,10 +170,10 @@ PHP_XMLDIFF_API xmlChar *
 php_xmldiff_do_merge_file(const char *src, const char *diff, struct ze_xmldiff_obj *zxo TSRMLS_DC);
 
 PHP_XMLDIFF_API xmlChar *
-php_xmldiff_do_diff_memory(const char *from, int from_len, const char *to, int to_len, struct ze_xmldiff_obj *zxo TSRMLS_DC);
+php_xmldiff_do_diff_memory(const char *from, size_t from_len, const char *to, size_t to_len, struct ze_xmldiff_obj *zxo TSRMLS_DC);
 
 PHP_XMLDIFF_API xmlChar *
-php_xmldiff_do_merge_memory(const char *src, int src_len, const char *diff, int diff_len, struct ze_xmldiff_obj *zxo TSRMLS_DC);
+php_xmldiff_do_merge_memory(const char *src, size_t src_len, const char *diff, size_t diff_len, struct ze_xmldiff_obj *zxo TSRMLS_DC);
 
 #if PHP_MAJOR_VERSION >= 7 || PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 3
 #  define XMLDIFF_DOM_RET_OBJ DOM_RET_OBJ

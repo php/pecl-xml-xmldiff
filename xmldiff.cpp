@@ -491,7 +491,7 @@ php_xmldiff_do_merge_file(const char *src, const char *diff, struct ze_xmldiff_o
 }/*}}}*/
 
 PHP_XMLDIFF_API xmlChar *
-php_xmldiff_do_diff_memory(const char *from, int from_len, const char *to, int to_len, struct ze_xmldiff_obj *zxo TSRMLS_DC)
+php_xmldiff_do_diff_memory(const char *from, size_t from_len, const char *to, size_t to_len, struct ze_xmldiff_obj *zxo TSRMLS_DC)
 {/*{{{*/
 	xmlDocPtr fromXmlDoc = xmlParseMemory(from, from_len);
 	xmlDocPtr toXmlDoc = xmlParseMemory(to, to_len);
@@ -508,7 +508,7 @@ php_xmldiff_do_diff_memory(const char *from, int from_len, const char *to, int t
 }/*}}}*/
 
 PHP_XMLDIFF_API xmlChar *
-php_xmldiff_do_merge_memory(const char *src, int src_len, const char *diff, int diff_len, struct ze_xmldiff_obj *zxo TSRMLS_DC)
+php_xmldiff_do_merge_memory(const char *src, size_t src_len, const char *diff, size_t diff_len, struct ze_xmldiff_obj *zxo TSRMLS_DC)
 {/*{{{*/
 	xmlDocPtr srcXmlDoc = xmlParseMemory(src, src_len);
 	xmlDocPtr diffXmlDoc = xmlParseMemory(diff, diff_len);
@@ -568,7 +568,11 @@ PHP_METHOD(XMLDiffBase, __construct)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *nsurl = NULL;
+#if PHP_MAJOR_VERSION >= 7
+	size_t nsurl_len = 0;
+#else
 	int nsurl_len = 0;
+#endif
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "|s", &nsurl, &nsurl_len) == FAILURE) {
 		return;
@@ -719,7 +723,12 @@ PHP_METHOD(XMLDiffFile, diff)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *from_fl, *to_fl, *ret;
+#if PHP_MAJOR_VERSION >= 7
+	size_t from_fl_len, to_fl_len;
+	int old_keep_blanks;
+#else
 	int from_fl_len, to_fl_len, old_keep_blanks;
+#endif
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &from_fl, &from_fl_len, &to_fl, &to_fl_len) == FAILURE) {
 		return;
@@ -756,7 +765,12 @@ PHP_METHOD(XMLDiffFile, merge)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *src_fl, *diff_fl, *ret;
+#if PHP_MAJOR_VERSION >= 7
+	size_t src_fl_len, diff_fl_len;
+	int old_keep_blanks;
+#else
 	int src_fl_len, diff_fl_len, old_keep_blanks;
+#endif
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &src_fl, &src_fl_len, &diff_fl, &diff_fl_len) == FAILURE) {
 		return;
@@ -793,7 +807,12 @@ PHP_METHOD(XMLDiffMemory, diff)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *from, *to, *ret;
+#if PHP_MAJOR_VERSION >= 7
+	size_t from_len, to_len;
+	int old_keep_blanks;
+#else
 	int from_len, to_len, old_keep_blanks;
+#endif
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &from, &from_len, &to, &to_len) == FAILURE) {
 		return;
@@ -830,7 +849,12 @@ PHP_METHOD(XMLDiffMemory, merge)
 {
 	struct ze_xmldiff_obj *zxo;
 	char *src, *diff, *ret;
+#if PHP_MAJOR_VERSION >= 7
+	size_t src_len, diff_len;
+	int old_keep_blanks;
+#else
 	int src_len, diff_len, old_keep_blanks;
+#endif
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &src, &src_len, &diff, &diff_len) == FAILURE) {
 		return;
