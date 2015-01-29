@@ -143,7 +143,7 @@ PHP_INI_END()
 #if PHP_MAJOR_VERSION >= 7
 void
 php_xmldiff_obj_destroy(zend_object *obj)
-{
+{/*{{{*/
 	struct ze_xmldiff_obj *zxo = php_xmldiff_fetch_obj(obj);
 
 	zend_object_std_dtor(&zxo->zo);
@@ -153,7 +153,7 @@ php_xmldiff_obj_destroy(zend_object *obj)
 	}
 
 	efree(zxo);
-}
+}/*}}}*/
 #else
 void
 php_xmldiff_object_destroy(void *obj TSRMLS_DC)
@@ -244,6 +244,7 @@ PHP_MINIT_FUNCTION(xmldiff)
 	default_xmldiff_handlers.clone_obj = NULL;
 #if PHP_MAJOR_VERSION >= 7
 	default_xmldiff_handlers.offset = XtOffsetOf(struct ze_xmldiff_obj, zo);
+	default_xmldiff_handlers.free_obj = php_xmldiff_obj_destroy;
 #endif
 
 	INIT_CLASS_ENTRY(ce, "XMLDiff\\Base", XMLDiffBase_methods);
@@ -322,7 +323,7 @@ PHP_MINFO_FUNCTION(xmldiff)
 
 static char *
 php_xmldiff_get_nsurl(struct ze_xmldiff_obj *zxo)
-{
+{/*{{{*/
 	char *nsurl = (char *)diffmark::nsurl;
 
 	if (NULL != zxo) {
@@ -332,7 +333,7 @@ php_xmldiff_get_nsurl(struct ze_xmldiff_obj *zxo)
 	}
 
 	return nsurl;
-}
+}/*}}}*/
 
 static XDoc
 php_xmldiff_do_diff(const XDoc &xFrom, const XDoc &xTo, struct ze_xmldiff_obj *zxo TSRMLS_DC)
