@@ -10,10 +10,10 @@
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2013-12-31</date>
+	<date>2015-01-29</date>
 	<version>
-		<release>1.0.0</release>
-		<api>1.0.0</api>
+		<release>1.1.0</release>
+		<api>0.10.0</api>
 	</version>
 	<stability>
 		<release>stable</release>
@@ -21,7 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- fixed libstdc++ linking on linux
+		- PHP7 compatibility
 	</notes>
 	<contents>
 		<dir name="/">
@@ -276,6 +276,21 @@
 	<providesextension>xmldiff</providesextension>
 	<extsrcrelease />
 	<changelog>
+		<release>
+			<date>2013-12-31</date>
+			<version>
+				<release>1.0.0</release>
+				<api>1.0.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- fixed libstdc++ linking on linux
+			</notes>
+		</release>
 		<release>
 			<date>2013-10-30</date>
 			<version>
