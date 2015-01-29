@@ -140,6 +140,21 @@ PHP_INI_END()
 */
 /* }}} */
 
+#if PHP_MAJOR_VERSION >= 7
+void
+php_xmldiff_obj_destroy(zend_object *obj)
+{
+	struct ze_xmldiff_obj *zxo = php_xmldiff_fetch_obj(obj);
+
+	zend_object_std_dtor(&zxo->zo);
+
+	if (zxo->nsurl) {
+		efree(zxo->nsurl);
+	}
+
+	efree(zxo);
+}
+#else
 void
 php_xmldiff_object_destroy(void *obj TSRMLS_DC)
 {/*{{{*/
@@ -153,7 +168,24 @@ php_xmldiff_object_destroy(void *obj TSRMLS_DC)
 
 	efree(zxo);
 }/*}}}*/
+#endif
 
+#if PHP_MAJOR_VERSION >= 7
+zend_object *
+php_xmldiff_object_init(zend_class_entry *ce)
+{/*{{{*/
+	struct ze_xmldiff_obj *zxo;
+
+	zxo = (struct ze_xmldiff_obj *)ecalloc(1, sizeof(struct ze_xmldiff_obj));
+
+	zend_object_std_init(&zxo->zo, ce);
+	zxo->zo.handlers = &default_xmldiff_handlers;
+
+	zxo->nsurl = NULL;
+
+	return &zxo->zo;
+}/*}}}*/
+#else
 zend_object_value
 php_xmldiff_object_init(zend_class_entry *ce TSRMLS_DC)
 {/*{{{*/
@@ -183,6 +215,7 @@ php_xmldiff_object_init(zend_class_entry *ce TSRMLS_DC)
 
 	return ret;
 }/*}}}*/
+#endif
 
 /* {{{ php_xmldiff_init_globals
  */
@@ -209,6 +242,9 @@ PHP_MINIT_FUNCTION(xmldiff)
 
 	memcpy(&default_xmldiff_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
 	default_xmldiff_handlers.clone_obj = NULL;
+#if PHP_MAJOR_VERSION >= 7
+	default_xmldiff_handlers.offset = XtOffsetOf(struct ze_xmldiff_obj, zo);
+#endif
 
 	INIT_CLASS_ENTRY(ce, "XMLDiff\\Base", XMLDiffBase_methods);
 	ce.create_object = php_xmldiff_object_init;
@@ -217,20 +253,36 @@ PHP_MINIT_FUNCTION(xmldiff)
 
 	INIT_CLASS_ENTRY(ce, "XMLDiff\\DOM", XMLDiffDOM_methods);
 	ce.create_object = php_xmldiff_object_init;
+#if PHP_MAJOR_VERSION >= 7
+	XMLDiffDOM_ce = zend_register_internal_class_ex(&ce, XMLDiffBase_ce);
+#else
 	XMLDiffDOM_ce = zend_register_internal_class_ex(&ce, XMLDiffBase_ce, "XMLDiff\\Base" TSRMLS_CC);
+#endif
 
 	INIT_CLASS_ENTRY(ce, "XMLDiff\\File", XMLDiffFile_methods);
 	ce.create_object = php_xmldiff_object_init;
+#if PHP_MAJOR_VERSION >= 7
+	XMLDiffFile_ce = zend_register_internal_class_ex(&ce, XMLDiffBase_ce);
+#else
 	XMLDiffFile_ce = zend_register_internal_class_ex(&ce, XMLDiffBase_ce, "XMLDiff\\Base" TSRMLS_CC);
+#endif
 
 	INIT_CLASS_ENTRY(ce, "XMLDiff\\Memory", XMLDiffMemory_methods);
 	ce.create_object = php_xmldiff_object_init;
+#if PHP_MAJOR_VERSION >= 7
+	XMLDiffMemory_ce = zend_register_internal_class_ex(&ce, XMLDiffBase_ce);
+#else
 	XMLDiffMemory_ce = zend_register_internal_class_ex(&ce, XMLDiffBase_ce, "XMLDiff\\Base" TSRMLS_CC);
+#endif
 
 	INIT_CLASS_ENTRY(ce, "XMLDiff\\Exception", NULL);
+#if PHP_MAJOR_VERSION >= 7
+	XMLDiffException_ce = zend_register_internal_class_ex(&ce, zend_exception_get_default());
+#else
 	XMLDiffException_ce = zend_register_internal_class_ex(
 		&ce, NULL, "exception" TSRMLS_CC
 	);
+#endif
 
 	return SUCCESS;
 }
@@ -491,7 +543,11 @@ php_xmldiff_is_valid_dom_obj(zval *arg, const char *name TSRMLS_DC)
 static void
 php_xmldiff_set_out_dom_props(zval *obj TSRMLS_DC)
 {/*{{{*/
+#if PHP_MAJOR_VERSION >= 7
+	dom_object *domObj = (dom_object *)php_dom_obj_from_obj(Z_OBJ_P(obj));
+#else
 	dom_object *domObj = (dom_object *)zend_object_store_get_object(obj TSRMLS_CC);
+#endif
 
 	if (!domObj->document->doc_props) {
 		domObj->document->doc_props = (libxml_doc_props *)emalloc(sizeof(libxml_doc_props));
@@ -518,7 +574,11 @@ PHP_METHOD(XMLDiffBase, __construct)
 		return;
 	}
 
+#if PHP_MAJOR_VERSION >= 7
+	zxo = php_xmldiff_fetch_obj(Z_OBJ_P(getThis()));
+#else
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
+#endif
 
 	if (nsurl_len > 0) {
 		zxo->nsurl = estrdup(nsurl);
@@ -560,11 +620,19 @@ PHP_METHOD(XMLDiffDOM, diff)
 
 	old_keep_blanks = xmlKeepBlanksDefault(0);
 
+#if PHP_MAJOR_VERSION >= 7
+	zxo = php_xmldiff_fetch_obj(Z_OBJ_P(getThis()));
+
+	/* prepare diff data */
+	from = php_dom_obj_from_obj(Z_OBJ_P(zfrom));
+	to = php_dom_obj_from_obj(Z_OBJ_P(zto));
+#else
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
 	/* prepare diff data */
 	from = (dom_object *)zend_object_store_get_object(zfrom TSRMLS_CC);
 	to = (dom_object *)zend_object_store_get_object(zto TSRMLS_CC);
+#endif
 
 	fromXmlDoc = (xmlDocPtr)from->document->ptr;
 	toXmlDoc = (xmlDocPtr)to->document->ptr;
@@ -611,11 +679,19 @@ PHP_METHOD(XMLDiffDOM, merge)
 
 	old_keep_blanks = xmlKeepBlanksDefault(0);
 
+#if PHP_MAJOR_VERSION >= 7
+	zxo = php_xmldiff_fetch_obj(Z_OBJ_P(getThis()));
+
+	/* prepare merge data */
+	src = php_dom_obj_from_obj(Z_OBJ_P(zsrc));
+	diff = php_dom_obj_from_obj(Z_OBJ_P(zdiff));
+#else
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 
 	/* prepare merge data */
 	src = (dom_object *)zend_object_store_get_object(zsrc TSRMLS_CC);
 	diff = (dom_object *)zend_object_store_get_object(zdiff TSRMLS_CC);
+#endif
 
 	srcXmlDoc = (xmlDocPtr)src->document->ptr;
 	diffXmlDoc = (xmlDocPtr)diff->document->ptr;
@@ -649,7 +725,11 @@ PHP_METHOD(XMLDiffFile, diff)
 		return;
 	}
 
+#if PHP_MAJOR_VERSION >= 7
+	zxo = php_xmldiff_fetch_obj(Z_OBJ_P(getThis()));
+#else
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
+#endif
 
 	old_keep_blanks = xmlKeepBlanksDefault(0);
 
@@ -659,7 +739,11 @@ PHP_METHOD(XMLDiffFile, diff)
 		RETURN_NULL();
 	}
 
-	RETURN_STRING(ret, 1);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
 
 	xmlFree(ret);
 	xmlCleanupParser();
@@ -678,7 +762,11 @@ PHP_METHOD(XMLDiffFile, merge)
 		return;
 	}
 
+#if PHP_MAJOR_VERSION >= 7
+	zxo = php_xmldiff_fetch_obj(Z_OBJ_P(getThis()));
+#else
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
+#endif
 
 	old_keep_blanks = xmlKeepBlanksDefault(0);
 
@@ -688,7 +776,11 @@ PHP_METHOD(XMLDiffFile, merge)
 		RETURN_NULL();
 	}
 
-	RETURN_STRING(ret, 1);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
 
 	xmlFree(ret);
 	xmlCleanupParser();
@@ -707,7 +799,11 @@ PHP_METHOD(XMLDiffMemory, diff)
 		return;
 	}
 
+#if PHP_MAJOR_VERSION >= 7
+	zxo = php_xmldiff_fetch_obj(Z_OBJ_P(getThis()));
+#else
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
+#endif
 
 	old_keep_blanks = xmlKeepBlanksDefault(0);
 
@@ -717,7 +813,11 @@ PHP_METHOD(XMLDiffMemory, diff)
 		RETURN_NULL();
 	}
 
-	RETURN_STRING(ret, 1);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
 
 	xmlFree(ret);
 	xmlCleanupParser();
@@ -736,7 +836,11 @@ PHP_METHOD(XMLDiffMemory, merge)
 		return;
 	}
 
+#if PHP_MAJOR_VERSION >= 7
+	zxo = php_xmldiff_fetch_obj(Z_OBJ_P(getThis()));
+#else
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
+#endif
 
 	old_keep_blanks = xmlKeepBlanksDefault(0);
 
@@ -746,7 +850,11 @@ PHP_METHOD(XMLDiffMemory, merge)
 		RETURN_NULL();
 	}
 
-	RETURN_STRING(ret, 1);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
 
 	xmlFree(ret);
 	xmlCleanupParser();

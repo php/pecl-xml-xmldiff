@@ -36,6 +36,8 @@
 extern "C" {
 #endif
 
+#define __STDC_LIMIT_MACROS 1
+
 #include "php.h"
 #include "php_ini.h"
 #include "ext/standard/info.h"
@@ -84,10 +86,22 @@ using std::cerr;
 using std::endl;
 using std::string;
 
+#if PHP_MAJOR_VERSION >= 7
+struct ze_xmldiff_obj {
+	char *nsurl;
+	zend_object zo;
+};
+static zend_always_inline struct ze_xmldiff_obj *
+php_xmldiff_fetch_obj(zend_object *obj)
+{/*{{{*/
+	return (struct ze_xmldiff_obj *)((char *)obj - XtOffsetOf(struct ze_xmldiff_obj, zo));
+}/*}}}*/
+#else
 struct ze_xmldiff_obj {
 	zend_object zo;
 	char *nsurl;
 };
+#endif
 
 #define PHP_XMLDIFF_VERSION "1.0.0"
 
@@ -161,7 +175,7 @@ php_xmldiff_do_diff_memory(const char *from, int from_len, const char *to, int t
 PHP_XMLDIFF_API xmlChar *
 php_xmldiff_do_merge_memory(const char *src, int src_len, const char *diff, int diff_len, struct ze_xmldiff_obj *zxo TSRMLS_DC);
 
-#if PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 3
+#if PHP_MAJOR_VERSION >= 7 || PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 3
 #  define XMLDIFF_DOM_RET_OBJ DOM_RET_OBJ
 #elif PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION == 3 && PHP_RELEASE_VERSION > 6
 #  define XMLDIFF_DOM_RET_OBJ DOM_RET_OBJ_EX
