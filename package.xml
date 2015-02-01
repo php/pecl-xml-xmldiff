@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.7.2" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks		-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+	<name>xmldiff</name>
+	<channel>pecl.php.net</channel>
+	<summary>XML diff and merge</summary>
+	<description>The extension is able to produce diffs of two XML documents and then to apply the difference to the source document. The diff is a XML document containing copy/insert/delete instruction nodes in human readable format. DOMDocument objects, local files and strings in memory can be processed.</description>
+	<lead>
+		<name>Anatol Belski</name>
+		<user>ab</user>
+		<email>ab@php.net</email>
+		<active>yes</active>
+	</lead>
+	<date>2015-02-01</date>
+	<version>
+		<release>1.1.0</release>
+		<api>0.10.0</api>
+	</version>
+	<stability>
+		<release>stable</release>
+		<api>stable</api>
+	</stability>
+	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+	<notes>
+		- PHP7 compatibility
+	</notes>
+	<contents>
+		<dir name="/">
+			<file role="src" name="php_xmldiff.h"/>
+			<file role="src" name="xmldiff.cpp"/>
+			<file role="doc" name="CREDITS"/>
+			<file role="doc" name="LICENSE"/>
+			<file role="src" name="config.w32"/>
+			<file role="src" name="config.m4"/>
+			<dir name="diffmark">
+				<file role="doc" name="COPYING"/>
+				<dir name="doc">
+					<file role="doc" name="diffmark.html"/>
+				</dir>
+				<dir name="lib">
+					<file role="src" name="compare.cc" />
+					<file role="src" name="compare.hh" />
+					<file role="src" name="compareimpl.hh" />
+					<file role="src" name="diff.cc" />
+					<file role="src" name="diff.hh" />
+					<file role="src" name="lcs.hh" />
+					<file role="src" name="lcsimpl.hh" />
+					<file role="src" name="link.cc" />
+					<file role="src" name="link.hh" />
+					<file role="src" name="merge.cc" />
+					<file role="src" name="merge.hh" />
+					<file role="src" name="namespacecollector.cc" />
+					<file role="src" name="namespacecollector.hh" />
+					<file role="src" name="nspace.cc" />
+					<file role="src" name="nspace.hh" />
+					<file role="src" name="target.cc" />
+					<file role="src" name="target.hh" />
+					<file role="src" name="xbuffer.cc" />
+					<file role="src" name="xbuffer.hh" />
+					<file role="src" name="xdoc.cc" />
+					<file role="src" name="xdoc.hh" />
+					<file role="src" name="xutil.cc" />
+					<file role="src" name="xutil.hh" />
+				</dir>
+			</dir>
+			<dir name="tests">
+<!-- {{{ -->
+				<file role="test" name="xmldiff_dom_failmerge.phpt" />
+				<file role="test" name="xmldiff_memory_failmerge.phpt" />
+				<file role="test" name="xmldiff_dom_diff.phpt" />
+				<file role="test" name="xmldiff_memory_roundup.phpt" />
+				<file role="test" name="xmldiff_file_diff.phpt" />
+				<file role="test" name="xmldiff_file_roundup.phpt" />
+				<file role="test" name="xmldiff_memory_diff.phpt" />
+				<file role="test" name="xmldiff_file_merge.phpt" />
+				<file role="test" name="xmldiff_dom_faildiff.phpt" />
+				<file role="test" name="xmldiff_memory_merge.phpt" />
+				<file role="test" name="xmldiff_file_faildiff.phpt" />
+				<file role="test" name="001.phpt" />
+				<file role="test" name="xmldiff_memory_faildiff.phpt" />
+				<file role="test" name="xmldiff_file_failmerge.phpt" />
+				<file role="test" name="xmldiff_dom_merge.phpt" />
+				<file role="test" name="xmldiff_dom_roundup.phpt" />
+				<dir name="testdata">
+					<dir name="diff">
+						<file role="data" name="00a.xml" />
+						<file role="data" name="00b.xml" />
+						<file role="data" name="00d.xml" />
+						<file role="data" name="01a.xml" />
+						<file role="data" name="01b.xml" />
+						<file role="data" name="01d.xml" />
+						<file role="data" name="02a.xml" />
+						<file role="data" name="02b.xml" />
+						<file role="data" name="02d.xml" />
+						<file role="data" name="03a.xml" />
+						<file role="data" name="03b.xml" />
+						<file role="data" name="03d.xml" />
+						<file role="data" name="04a.xml" />
+						<file role="data" name="04b.xml" />
+						<file role="data" name="04d.xml" />
+						<file role="data" name="05a.xml" />
+						<file role="data" name="05b.xml" />
+						<file role="data" name="05d.xml" />
+						<file role="data" name="06a.xml" />
+						<file role="data" name="06b.xml" />
+						<file role="data" name="06d.xml" />
+						<file role="data" name="07a.xml" />
+						<file role="data" name="07b.xml" />
+						<file role="data" name="07d.xml" />
+						<file role="data" name="08a.xml" />
+						<file role="data" name="08b.xml" />
+						<file role="data" name="08d.xml" />
+						<file role="data" name="09a.xml" />
+						<file role="data" name="09b.xml" />
+						<file role="data" name="09d.xml" />
+						<file role="data" name="10a.xml" />
+						<file role="data" name="10b.xml" />
+						<file role="data" name="10d.xml" />
+						<file role="data" name="11a.xml" />
+						<file role="data" name="11b.xml" />
+						<file role="data" name="11d.xml" />
+						<file role="data" name="12a.xml" />
+						<file role="data" name="12b.xml" />
+						<file role="data" name="12d.xml" />
+						<file role="data" name="13a.xml" />
+						<file role="data" name="13b.xml" />
+						<file role="data" name="13d.xml" />
+						<file role="data" name="14a.xml" />
+						<file role="data" name="14b.xml" />
+						<file role="data" name="14d.xml" />
+					</dir>
+					<dir name="faildiff">
+						<file role="data" name="00a.xml" />
+						<file role="data" name="00b.xml" />
+						<file role="data" name="00.err" />
+						<file role="data" name="01a.xml" />
+						<file role="data" name="01b.xml" />
+						<file role="data" name="01.err" />
+					</dir>
+					<dir name="merge">
+						<file role="data" name="00a.xml" />
+						<file role="data" name="00b.xml" />
+						<file role="data" name="00d.xml" />
+						<file role="data" name="01a.xml" />
+						<file role="data" name="01b.xml" />
+						<file role="data" name="01d.xml" />
+						<file role="data" name="02a.xml" />
+						<file role="data" name="02b.xml" />
+						<file role="data" name="02d.xml" />
+						<file role="data" name="03a.xml" />
+						<file role="data" name="03b.xml" />
+						<file role="data" name="03d.xml" />
+						<file role="data" name="04a.xml" />
+						<file role="data" name="04b.xml" />
+						<file role="data" name="04d.xml" />
+					</dir>
+					<dir name="failmerge">
+						<file role="data" name="00a.xml" />
+						<file role="data" name="00d.xml" />
+						<file role="data" name="00.err" />
+						<file role="data" name="01a.xml" />
+						<file role="data" name="01d.xml" />
+						<file role="data" name="01.err" />
+						<file role="data" name="02a.xml" />
+						<file role="data" name="02d.xml" />
+						<file role="data" name="02.err" />
+						<file role="data" name="03a.xml" />
+						<file role="data" name="03d.xml" />
+						<file role="data" name="03.err" />
+						<file role="data" name="04a.xml" />
+						<file role="data" name="04d.xml" />
+						<file role="data" name="04.err" />
+						<file role="data" name="05a.xml" />
+						<file role="data" name="05d.xml" />
+						<file role="data" name="05.err" />
+						<file role="data" name="06a.xml" />
+						<file role="data" name="06d.xml" />
+						<file role="data" name="06.err" />
+						<file role="data" name="07a.xml" />
+						<file role="data" name="07d.xml" />
+						<file role="data" name="07.err" />
+						<file role="data" name="08a.xml" />
+						<file role="data" name="08d.xml" />
+						<file role="data" name="08.err" />
+					</dir>
+					<dir name="roundup">
+						<file role="data" name="00a.xml" />
+						<file role="data" name="00b.xml" />
+						<file role="data" name="00d.xml" />
+						<file role="data" name="01a.xml" />
+						<file role="data" name="01b.xml" />
+						<file role="data" name="01d.xml" />
+						<file role="data" name="02a.xml" />
+						<file role="data" name="02b.xml" />
+						<file role="data" name="02d.xml" />
+						<file role="data" name="03a.xml" />
+						<file role="data" name="03b.xml" />
+						<file role="data" name="03d.xml" />
+						<file role="data" name="04a.xml" />
+						<file role="data" name="04b.xml" />
+						<file role="data" name="04d.xml" />
+						<file role="data" name="05a.xml" />
+						<file role="data" name="05b.xml" />
+						<file role="data" name="05d.xml" />
+						<file role="data" name="06a.xml" />
+						<file role="data" name="06b.xml" />
+						<file role="data" name="06d.xml" />
+						<file role="data" name="07a.xml" />
+						<file role="data" name="07b.xml" />
+						<file role="data" name="07d.xml" />
+						<file role="data" name="08a.xml" />
+						<file role="data" name="08b.xml" />
+						<file role="data" name="08d.xml" />
+						<file role="data" name="09a.xml" />
+						<file role="data" name="09b.xml" />
+						<file role="data" name="09d.xml" />
+						<file role="data" name="10a.xml" />
+						<file role="data" name="10b.xml" />
+						<file role="data" name="10d.xml" />
+						<file role="data" name="11a.xml" />
+						<file role="data" name="11b.xml" />
+						<file role="data" name="11d.xml" />
+						<file role="data" name="12a.xml" />
+						<file role="data" name="12b.xml" />
+						<file role="data" name="12d.xml" />
+						<file role="data" name="13a.xml" />
+						<file role="data" name="13b.xml" />
+						<file role="data" name="13d.xml" />
+						<file role="data" name="14a.xml" />
+						<file role="data" name="14b.xml" />
+						<file role="data" name="14d.xml" />
+						<file role="data" name="15a.xml" />
+						<file role="data" name="15b.xml" />
+						<file role="data" name="15d.xml" />
+						<file role="data" name="16a.xml" />
+						<file role="data" name="16b.xml" />
+						<file role="data" name="16d.xml" />
+						<file role="data" name="17a.xml" />
+						<file role="data" name="17b.xml" />
+						<file role="data" name="17d.xml" />
+						<file role="data" name="18a.xml" />
+						<file role="data" name="18b.xml" />
+						<file role="data" name="18d.xml" />
+						<file role="data" name="19a.xml" />
+						<file role="data" name="19b.xml" />
+						<file role="data" name="19d.xml" />
+						<file role="data" name="20a.xml" />
+						<file role="data" name="20b.xml" />
+						<file role="data" name="20d.xml" />
+						<file role="data" name="21a.xml" />
+						<file role="data" name="21b.xml" />
+						<file role="data" name="21d.xml" />
+						<file role="data" name="22a.xml" />
+						<file role="data" name="22b.xml" />
+						<file role="data" name="22d.xml" />
+						<file role="data" name="23a.xml" />
+						<file role="data" name="23b.xml" />
+						<file role="data" name="23d.xml" />
+					</dir>
+				</dir>
+<!-- }}}  -->
+			</dir>
+		</dir>
+	</contents>
+	<dependencies>
+		<required>
+			<php>
+				<min>5.3</min>
+			</php>
+			<pearinstaller>
+				<min>1.4.0</min>
+			</pearinstaller>
+			<extension><name>dom</name></extension>
+			<extension><name>libxml</name></extension>
+		</required>
+	</dependencies>
+	<providesextension>xmldiff</providesextension>
+	<extsrcrelease />
+	<changelog>
+		<release>
+			<date>2013-12-31</date>
+			<version>
+				<release>1.0.0</release>
+				<api>1.0.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- fixed libstdc++ linking on linux
+			</notes>
+		</release>
+		<release>
+			<date>2013-10-30</date>
+			<version>
+				<release>0.9.1</release>
+				<api>0.9.1</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fixed libxml behavior change after diff/merge
+				- Fixed DOM compatibility for PHP 5.3.6 and below (Remi Collet)
+			</notes>
+		</release>
+		<release>
+			<date>2013-10-01</date>
+			<version>
+				<release>0.9.0</release>
+				<api>0.9.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fixed compilation under VS2008 and below
+				- Fixed memory leaks and exception handling
+				- Improved the m4 script, system wide libdiffmark will be used if available (Remi Collet)
+				- General improvements (Remi Collet)
+				- RPMs are now available from Remi's repository
+			</notes>
+		</release>
+		<release>
+			<date>2013-09-28</date>
+			<version>
+				<release>0.8.0</release>
+				<api>0.8.0</api>
+			</version>
+			<stability>
+				<release>beta</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				Initial PECL import
+			</notes>
+		</release>
+	</changelog>
+</package>
+<!--
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * End:
+ * vim600: noet sw=4 ts=4 fdm=marker
+ * vim<600: noet sw=4 ts=4
+ */
+-->

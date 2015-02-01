@@ -1,0 +1,97 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>diffmark</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" title="diffmark"><div class="titlepage"><div><div><h1 class="title"><a name="idp1469496"></a>
+      <a class="ulink" href="http://www.mangrove.cz/diffmark" target="_top">diffmark</a>
+    </h1></div><div><div class="author"><h3 class="author"><span class="firstname">Václav</span> <span class="surname">Bárta</span></h3><div class="affiliation"><div class="address"><p><code class="email">&lt;<a class="email" href="mailto:vbar@comp.cz">vbar@comp.cz</a>&gt;</code></p></div></div></div></div></div><hr></div><p><span class="application">diffmark</span> is an XML diff and merge
+  package. It consists of a shared C++ library,
+  <code class="filename">libdiffmark</code>, plus two programs wrapping the
+  library into a command-line interface: <span class="command"><strong>dm</strong></span> and
+  <span class="command"><strong>dm-merge</strong></span>. <span class="command"><strong>dm</strong></span> takes 2 XML files
+  and prints their diff (also an XML document) on its standard
+  output. <span class="command"><strong>dm-merge</strong></span> takes the first document passed
+  to dm and its output and produces the second document.</p><p><span class="application">diffmark</span> has a close (not to say
+  convoluted) relationship
+  with the Perl module <span class="application">XML::DifferenceMarkup</span>
+  (available on
+  <a class="ulink" href="http://www.cpan.org" target="_top">CPAN</a>). Current versions of
+  <span class="application">XML::DifferenceMarkup</span> are built on top of
+  <code class="filename">libdiffmark</code>, making the packages compatible.
+  <code class="filename">libdiffmark</code> depends on
+  <span class="application">libxml2</span> (available from
+  <a class="ulink" href="http://xmlsoft.org" target="_top">http://xmlsoft.org</a>).</p><p>The diff format is meant to be human-readable
+  (i.e. simple, as opposed to short) - basically the diff is a subset
+  of the input trees, annotated with instruction element nodes
+  specifying how to convert the source tree to the target by inserting
+  and deleting nodes. To prevent name colisions with input trees, all
+  added elements are in a namespace
+  <code class="systemitem">http://www.locus.cz/diffmark</code>
+  (the diff will fail on input trees which already use that
+  namespace).</p><p>The top-level node of the diff is always
+  <span class="markup">&lt;diff&gt;</span> (or rather <span class="markup">&lt;dm:diff
+  xmlns:dm="http://www.locus.cz/diffmark"&gt;
+  ... &lt;/dm:diff&gt;</span> - this description omits the namespace
+  specification from now on); under it are fragments of the input
+  trees and instruction nodes: <span class="markup">&lt;insert/&gt;</span>,
+  <span class="markup">&lt;delete/&gt;</span> and
+  <span class="markup">&lt;copy/&gt;</span>. <span class="markup">&lt;copy/&gt;</span> is
+  used in places where the input subtrees are the same - in the limit,
+  the diff of 2 identical documents is
+
+  </p><pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;dm:diff xmlns:dm="http://www.locus.cz/XML/diffmark"&gt;
+  &lt;dm:copy count="1"/&gt;
+&lt;/dm:diff&gt;</pre><p>
+
+  (<span class="markup">&lt;copy/&gt;</span> always has the count attribute and
+  no other content).</p><p><span class="markup">&lt;insert/&gt;</span> and
+  <span class="markup">&lt;delete/&gt;</span> have the obvious meaning - in the
+  limit a diff of 2 documents which have nothing in common is
+  something like
+
+  </p><pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;dm:diff xmlns:dm="http://www.locus.cz/XML/diffmark"&gt;
+  &lt;dm:delete&gt;
+    &lt;old/&gt;
+  &lt;/dm:delete&gt;
+  &lt;dm:insert&gt;
+    &lt;new&gt;
+      &lt;tree&gt;with the whole subtree, of course&lt;/tree&gt;
+    &lt;/new&gt;
+  &lt;/dm:insert&gt;
+&lt;/dm:diff&gt;</pre><p>
+  </p><p>A combination of <span class="markup">&lt;insert/&gt;</span>,
+  <span class="markup">&lt;delete/&gt;</span> and <span class="markup">&lt;copy/&gt;</span>
+  can capture any difference, but it's sub-optimal for the case where
+  (for example) the top-level elements in the two input documents
+  differ while their subtrees are exactly the same. dm handles this
+  case by putting the element from the second document into the diff,
+  adding to it a special attribute <span class="markup">dm:update</span> (whose
+  value is the element name from the first document) marking the
+  element change:
+
+  </p><pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;dm:diff xmlns:dm="http://www.locus.cz/XML/diffmark"&gt;
+  &lt;top-of-second dm:update="top-of-first"&gt;
+    &lt;dm:copy count="42"/&gt;
+  &lt;/top-of-second&gt;
+&lt;/dm:diff&gt;</pre><p>  
+  </p><p><span class="markup">&lt;delete/&gt;</span> contains just one level of
+  nested nodes - their subtrees are not included in the diff (but the
+  element nodes which are included always come with all their
+  attributes). <span class="markup">&lt;insert/&gt;</span> and
+  <span class="markup">&lt;delete/&gt;</span> don't have any attributes and
+  always contain some subtree.</p><p>Instruction nodes are never nested; all nodes above an
+  instruction node (except the top-level
+  <span class="markup">&lt;diff/&gt;</span>) come from the input trees. A node
+  from the second input tree might be included in the output diff to
+  provide context for instruction nodes when it's an element node
+  whose subtree is not the same in the two input documents. When such
+  an element has the same name, attributes (names and values) and
+  namespace declarations in both input documents, it's always included
+  in the diff (its different output trees guarantee that it will have
+  some chindren there). If the corresponding elements are different,
+  the one from the second document might still be included, with an
+  added <span class="markup">dm:update</span> attribute, provided that both
+  corresponding elements have non-empty subtrees, and these subtrees
+  are so similar that deleting the first corresponding element and
+  inserting the second would lead to a larger diff. And if this
+  paragraph seems too complicated, don't despair - just ignore it and
+  look at some examples.</p></div></body></html>
