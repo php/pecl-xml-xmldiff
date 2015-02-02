@@ -21,7 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- fix availability of integer constant macros in C++ (Jan Ehrhardt <phpdev@ehrhardt.nl>)
+		- fix availability of integer constant macros in C++ (Jan Ehrhardt)
 	</notes>
 	<contents>
 		<dir name="/">
