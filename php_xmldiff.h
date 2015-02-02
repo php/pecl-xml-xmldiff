@@ -36,8 +36,12 @@
 extern "C" {
 #endif
 
-#define __STDC_LIMIT_MACROS 1
-#define __STDC_CONSTANT_MACROS 1
+#ifndef __STDC_LIMIT_MACROS
+# define __STDC_LIMIT_MACROS 1
+#endif
+#ifndef __STDC_CONSTANT_MACROS
+# define __STDC_CONSTANT_MACROS 1
+#endif
 
 #include "php.h"
 #include "php_ini.h"
