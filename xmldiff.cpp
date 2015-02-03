@@ -151,8 +151,6 @@ php_xmldiff_obj_destroy(zend_object *obj)
 	if (zxo->nsurl) {
 		efree(zxo->nsurl);
 	}
-
-	efree(zxo);
 }/*}}}*/
 #else
 void
