@@ -653,7 +653,7 @@ PHP_METHOD(XMLDiffDOM, diff)
 	/* set return object properties */
 	php_xmldiff_set_out_dom_props(return_value TSRMLS_CC);
 
-	xmlCleanupParser();
+	/* xmlCleanupParser(); */
 
 	xmlKeepBlanksDefault(old_keep_blanks);
 }/*}}}*/
@@ -712,7 +712,7 @@ PHP_METHOD(XMLDiffDOM, merge)
 	/* set return object properties */
 	php_xmldiff_set_out_dom_props(return_value TSRMLS_CC);
 
-	xmlCleanupParser();
+	/* xmlCleanupParser(); */
 
 	xmlKeepBlanksDefault(old_keep_blanks);
 }/* }}} */
@@ -754,7 +754,7 @@ PHP_METHOD(XMLDiffFile, diff)
 #endif
 
 	xmlFree(ret);
-	xmlCleanupParser();
+	/* xmlCleanupParser(); */
 
 	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
@@ -796,7 +796,7 @@ PHP_METHOD(XMLDiffFile, merge)
 #endif
 
 	xmlFree(ret);
-	xmlCleanupParser();
+	/* xmlCleanupParser(); */
 
 	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
@@ -838,7 +838,7 @@ PHP_METHOD(XMLDiffMemory, diff)
 #endif
 
 	xmlFree(ret);
-	xmlCleanupParser();
+	/* xmlCleanupParser(); */
 
 	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
@@ -880,7 +880,7 @@ PHP_METHOD(XMLDiffMemory, merge)
 #endif
 
 	xmlFree(ret);
-	xmlCleanupParser();
+	/* xmlCleanupParser(); */
 
 	xmlKeepBlanksDefault(old_keep_blanks);
 } /* }}} */
