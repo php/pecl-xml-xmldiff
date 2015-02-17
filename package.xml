@@ -10,9 +10,9 @@
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2015-02-03</date>
+	<date>2015-02-17</date>
 	<version>
-		<release>1.1.2</release>
+		<release>1.1.3</release>
 		<api>0.10.0</api>
 	</version>
 	<stability>
@@ -21,7 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- fix invalid free in PHP7
+		- fix inappropriate xmlCleanupParser usage
 	</notes>
 	<contents>
 		<dir name="/">
@@ -276,6 +276,21 @@
 	<providesextension>xmldiff</providesextension>
 	<extsrcrelease />
 	<changelog>
+		<release>
+			<date>2015-02-03</date>
+			<version>
+				<release>1.1.2</release>
+				<api>0.10.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- fix invalid free in PHP7
+			</notes>
+		</release>
 		<release>
 			<date>2015-02-02</date>
 			<version>
