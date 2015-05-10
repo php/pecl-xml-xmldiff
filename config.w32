@@ -10,8 +10,7 @@ if (PHP_XMLDIFF != "no") {
 		CHECK_HEADER_ADD_INCLUDE("xdoc.hh", "CFLAGS_XMLDIFF", PHP_XMLDIFF + ";" + configure_module_dirname + "\\diffmark\\lib") &&
 		CHECK_LIB("libxml2_a_dll.lib;libxml2_a.lib", "xmldiff") &&
 		CHECK_LIB("libiconv_a.lib;iconv_a.lib;libiconv.lib;iconv.lib", "xmldiff") &&
-		(CHECK_HEADER_ADD_INCLUDE("libxml2/libxml/parser.h", "CFLAGS_XMLDIFF") ||
-		CHECK_HEADER_ADD_INCLUDE("libxml/parser.h", "CFLAGS_XMLDIFF"))
+		CHECK_HEADER_ADD_INCLUDE("libxml/parser.h", "CFLAGS_XMLDIFF", PHP_PHP_BUILD + "\\include\libxml2")
 	) {
 
 		EXTENSION("xmldiff", "xmldiff.cpp");
