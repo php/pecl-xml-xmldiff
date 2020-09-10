@@ -147,6 +147,14 @@ ZEND_END_MODULE_GLOBALS(xmldiff)
    examples in any other php module directory.
 */
 
+#ifndef TSRMLS_DC
+#define TSRMLS_D void
+#define TSRMLS_DC
+#define TSRMLS_C
+#define TSRMLS_CC
+#define TSRMLS_FETCH()
+#endif
+
 #ifdef ZTS
 #define XMLDIFF_G(v) TSRMG(xmldiff_globals_id, zend_xmldiff_globals *, v)
 #else

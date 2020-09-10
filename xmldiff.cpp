@@ -62,6 +62,10 @@ const zend_function_entry xmldiff_functions[] = {
 /* }}} */
 
 /* {{{ arginfo */
+ZEND_BEGIN_ARG_INFO_EX(XMLDiff_construct, 0, 0, 0)
+	ZEND_ARG_INFO(0, nsurl)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(XMLDiff_diff, 0, 0, 2)
 	ZEND_ARG_INFO(0, from)
 	ZEND_ARG_INFO(0, to)
@@ -75,7 +79,7 @@ ZEND_END_ARG_INFO()
 
 /* {{{ xmldiff_methods[] */
 const zend_function_entry XMLDiffBase_methods[] = {
-	PHP_ME(XMLDiffBase, __construct, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(XMLDiffBase, __construct, XMLDiff_construct, ZEND_ACC_PUBLIC)
 	PHP_ME(XMLDiffBase, diff, XMLDiff_diff, ZEND_ACC_PUBLIC | ZEND_ACC_ABSTRACT)
 	PHP_ME(XMLDiffBase, merge, XMLDiff_merge, ZEND_ACC_PUBLIC | ZEND_ACC_ABSTRACT)
 	PHP_FE_END
