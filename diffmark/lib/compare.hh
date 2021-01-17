@@ -19,7 +19,7 @@ namespace std {
 template<>
 struct less<xmlNsPtr>
 {
-    bool operator()(const xmlNsPtr &a, const xmlNsPtr &b)
+    bool operator()(const xmlNsPtr &a, const xmlNsPtr &b) const
     {
 	return compareimpl::compare_ns(a, b) < 0;
     }
@@ -28,7 +28,7 @@ struct less<xmlNsPtr>
 template<>
 struct equal_to<xmlNsPtr>
 {
-    bool operator()(const xmlNsPtr &a, const xmlNsPtr &b)
+    bool operator()(const xmlNsPtr &a, const xmlNsPtr &b) const
     {
 	return compareimpl::compare_ns(a, b) == 0;
     }
@@ -37,7 +37,7 @@ struct equal_to<xmlNsPtr>
 template<>
 struct less<xmlAttrPtr>
 {
-    bool operator()(const xmlAttrPtr &a, const xmlAttrPtr &b)
+    bool operator()(const xmlAttrPtr &a, const xmlAttrPtr &b) const
     {
 	return compareimpl::compare_attr(a, b) < 0;
     }
@@ -46,7 +46,7 @@ struct less<xmlAttrPtr>
 template<>
 struct equal_to<xmlAttrPtr>
 {
-    bool operator()(const xmlAttrPtr &a, const xmlAttrPtr &b)
+    bool operator()(const xmlAttrPtr &a, const xmlAttrPtr &b) const
     {
 	return compareimpl::compare_attr(a, b) == 0;
     }
