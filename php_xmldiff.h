@@ -32,6 +32,8 @@
 #ifndef PHP_XMLDIFF_H
 #define PHP_XMLDIFF_H
 
+#define U_SHOW_CPLUSPLUS_API 0
+
 #ifdef __cplusplus
 extern "C" {
 #endif
