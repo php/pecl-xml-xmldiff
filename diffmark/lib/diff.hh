@@ -13,7 +13,7 @@ namespace std {
 template<>
 struct less<xmlNodePtr>
 {
-    bool operator()(xmlNodePtr m, xmlNodePtr n) const 
+    bool operator()(xmlNodePtr m, xmlNodePtr n)
     {
 	return compare(m, n, true) < 0;
     }
@@ -22,7 +22,7 @@ struct less<xmlNodePtr>
 template<>
 struct equal_to<xmlNodePtr>
 {
-    bool operator()(xmlNodePtr m, xmlNodePtr n) const
+    bool operator()(xmlNodePtr m, xmlNodePtr n)
     {
 	return compare(m, n, true) == 0;
     }

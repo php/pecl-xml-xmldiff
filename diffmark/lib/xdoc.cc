@@ -42,7 +42,7 @@ XDoc &XDoc::operator=(const XDoc &other)
 void XDoc::del_ref()
 {
     if (!(--*ref_cnt)) {
-	if (doc) {
+        if (doc) {
 	    xmlFreeDoc(doc);
 	}
 
