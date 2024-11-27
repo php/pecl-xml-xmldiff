@@ -10,7 +10,13 @@
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2021-01-17</date>
+	<lead>
+		<name>Derick Rethans</name>
+		<user>derick</user>
+		<email>derick@php.net</email>
+		<active>yes</active>
+	</lead>
+	<date>2024-11-27</date>
 	<version>
 		<release>1.1.4</release>
 		<api>0.10.0</api>
@@ -21,7 +27,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- TODO
+		- Fix PHP 8.4 compatibility (Remi Collet)
 	</notes>
 	<contents>
 		<dir name="/">
