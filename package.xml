@@ -18,7 +18,7 @@
 	</lead>
 	<date>2024-11-27</date>
 	<version>
-		<release>1.1.4</release>
+		<release>1.1.5</release>
 		<api>0.10.0</api>
 	</version>
 	<stability>
@@ -27,7 +27,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- Fix PHP 8.4 compatibility (Remi Collet)
+		- TODO
 	</notes>
 	<contents>
 		<dir name="/">
@@ -282,6 +282,21 @@
 	<providesextension>xmldiff</providesextension>
 	<extsrcrelease />
 	<changelog>
+		<release>
+			<date>2024-11-27</date>
+			<version>
+				<release>1.1.4</release>
+				<api>0.10.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fix PHP 8.4 compatibility (Remi Collet)
+			</notes>
+		</release>
 		<release>
 			<date>2021-01-17</date>
 			<version>
