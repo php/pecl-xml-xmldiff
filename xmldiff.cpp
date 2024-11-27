@@ -384,7 +384,7 @@ php_xmldiff_do_diff_doc(xmlDocPtr fromXmlDoc, xmlDocPtr toXmlDoc, struct ze_xmld
 
 		xFrom = new XDoc(fromXmlDoc);
 		xTo = new XDoc(toXmlDoc);
-		
+
 		if (NULL != xFrom && NULL != xTo) {
 			xDiff = php_xmldiff_do_diff(*xFrom, *xTo, zxo TSRMLS_CC);
 			retDoc = xDiff.yank();
@@ -420,7 +420,7 @@ php_xmldiff_do_merge_doc(xmlDocPtr srcXmlDoc, xmlDocPtr diffXmlDoc, struct ze_xm
 
 		xSrc = new XDoc(srcXmlDoc);
 		xDiff = new XDoc(diffXmlDoc);
-		
+
 		if (NULL != xSrc && NULL != xDiff) {
 			xMerge = php_xmldiff_do_merge(*xSrc, *xDiff, zxo TSRMLS_CC);
 			retDoc = xMerge.yank();
@@ -482,7 +482,7 @@ php_xmldiff_do_merge_file(const char *src, const char *diff, struct ze_xmldiff_o
 
 		if (NULL != xSrc && NULL != xDiff) {
 			xMerge = php_xmldiff_do_merge(xSrc, xDiff, zxo TSRMLS_CC);
-			xmlDocDumpFormatMemory(xMerge, &ret, &size, 1);	
+			xmlDocDumpFormatMemory(xMerge, &ret, &size, 1);
 		}
 	} catch (string &x) {
 		php_xmldiff_throw_exception_no_va(x.c_str(), PHP_XMLDIFF_THROW_MERGE TSRMLS_CC);
@@ -504,7 +504,7 @@ php_xmldiff_do_diff_memory(const char *from, size_t from_len, const char *to, si
 
 	if (NULL != fromXmlDoc && NULL != toXmlDoc) {
 		retDoc = php_xmldiff_do_diff_doc(fromXmlDoc, toXmlDoc, zxo TSRMLS_CC);
-		xmlDocDumpFormatMemory(retDoc, &ret, &size, 1);	
+		xmlDocDumpFormatMemory(retDoc, &ret, &size, 1);
 	}
 
 	return ret;
