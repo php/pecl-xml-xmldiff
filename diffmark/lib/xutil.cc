@@ -221,11 +221,15 @@ void xutil::remove_child(xmlNodePtr parent, xmlNodePtr child)
 
 void xutil::remove_children(xmlNodePtr n)
 {
-    if (n->children)
-    {
-	xmlFree(n->children);
-	n->children = 0;
-	n->last = 0;
+    xmlNodePtr cur = n->children;
+    if (cur) {
+        while (cur) {
+            xmlNodePtr next = cur->next;
+            xmlFreeNode(cur);
+            cur = next;
+        }
+        n->children = 0;
+        n->last = 0;
     }
 }
 
