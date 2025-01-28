@@ -482,7 +482,11 @@ php_xmldiff_do_diff_memory(const char *from, size_t from_len, const char *to, si
 	if (NULL != fromXmlDoc && NULL != toXmlDoc) {
 		retDoc = php_xmldiff_do_diff_doc(fromXmlDoc, toXmlDoc, zxo TSRMLS_CC);
 		xmlDocDumpFormatMemory(retDoc, &ret, &size, 1);
+		xmlFreeDoc(retDoc);
 	}
+
+	xmlFreeDoc(fromXmlDoc);
+	xmlFreeDoc(toXmlDoc);
 
 	return ret;
 }/*}}}*/
@@ -499,7 +503,11 @@ php_xmldiff_do_merge_memory(const char *src, size_t src_len, const char *diff, s
 	if (NULL != srcXmlDoc && NULL != diffXmlDoc) {
 		retDoc = php_xmldiff_do_merge_doc(srcXmlDoc, diffXmlDoc, zxo TSRMLS_CC);
 		xmlDocDumpFormatMemory(retDoc, &ret, &size, 1);
+		xmlFreeDoc(retDoc);
 	}
+
+	xmlFreeDoc(srcXmlDoc);
+	xmlFreeDoc(diffXmlDoc);
 
 	return ret;
 }/*}}}*/
