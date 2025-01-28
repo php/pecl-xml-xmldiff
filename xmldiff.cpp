@@ -378,34 +378,22 @@ PHP_XMLDIFF_API xmlDocPtr
 php_xmldiff_do_diff_doc(xmlDocPtr fromXmlDoc, xmlDocPtr toXmlDoc, struct ze_xmldiff_obj *zxo TSRMLS_DC)
 {/*{{{*/
 	xmlDocPtr retDoc = NULL;
-	XDoc *xFrom = NULL, *xTo = NULL, xDiff;
+	XDoc xDiff;
+	XDoc xFrom(fromXmlDoc);
+	XDoc xTo(toXmlDoc);
 
 	try {
-
-		xFrom = new XDoc(fromXmlDoc);
-		xTo = new XDoc(toXmlDoc);
-
-		if (NULL != xFrom && NULL != xTo) {
-			xDiff = php_xmldiff_do_diff(*xFrom, *xTo, zxo TSRMLS_CC);
-			retDoc = xDiff.yank();
-		}
-
+		xDiff = php_xmldiff_do_diff(xFrom, xTo, zxo TSRMLS_CC);
+		retDoc = xDiff.yank();
 	} catch (std::bad_alloc &x) {
-		if (NULL != xFrom) {
-			delete xFrom;
-		}
-		if (NULL != xTo) {
-			delete xTo;
-		}
-
 		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_BADALLOC TSRMLS_CC);
-
-		return NULL;
 	} catch (std::string &x) {
 		php_xmldiff_throw_exception_no_va(x.c_str(), PHP_XMLDIFF_THROW_DIFF TSRMLS_CC);
-
-		return NULL;
 	}
+
+	// Non-owned, so destructor should not clean the internal documents.
+	xFrom.yank();
+	xTo.yank();
 
 	return retDoc;
 }/*}}}*/
@@ -414,33 +402,22 @@ PHP_XMLDIFF_API xmlDocPtr
 php_xmldiff_do_merge_doc(xmlDocPtr srcXmlDoc, xmlDocPtr diffXmlDoc, struct ze_xmldiff_obj *zxo TSRMLS_DC)
 {/*{{{*/
 	xmlDocPtr retDoc = NULL;
-	XDoc *xSrc = NULL, *xDiff = NULL, xMerge;
+	XDoc xMerge;
+	XDoc xSrc(srcXmlDoc);
+	XDoc xDiff(diffXmlDoc);
 
 	try {
-
-		xSrc = new XDoc(srcXmlDoc);
-		xDiff = new XDoc(diffXmlDoc);
-
-		if (NULL != xSrc && NULL != xDiff) {
-			xMerge = php_xmldiff_do_merge(*xSrc, *xDiff, zxo TSRMLS_CC);
-			retDoc = xMerge.yank();
-		}
+		xMerge = php_xmldiff_do_merge(xSrc, xDiff, zxo TSRMLS_CC);
+		retDoc = xMerge.yank();
 	} catch (std::bad_alloc &x) {
-		if (NULL != xSrc) {
-			delete xSrc;
-		}
-		if (NULL != xDiff) {
-			delete xDiff;
-		}
-
 		php_xmldiff_throw_exception_no_va(x.what(), PHP_XMLDIFF_THROW_BADALLOC TSRMLS_CC);
-
-		return NULL;
 	} catch (std::string &x) {
 		php_xmldiff_throw_exception_no_va(x.c_str(), PHP_XMLDIFF_THROW_MERGE TSRMLS_CC);
-
-		return NULL;
 	}
+
+	// Non-owned, so destructor should not clean the internal documents.
+	xSrc.yank();
+	xDiff.yank();
 
 	return retDoc;
 }/*}}}*/
