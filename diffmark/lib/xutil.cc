@@ -216,6 +216,7 @@ void xutil::remove_child(xmlNodePtr parent, xmlNodePtr child)
 	(parent == child->parent));
 
     unlink_node(child);
+    xmlFreeNode(child);
 }
 
 void xutil::remove_children(xmlNodePtr n)
