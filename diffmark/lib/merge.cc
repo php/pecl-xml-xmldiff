@@ -174,7 +174,12 @@ void Merge::copy_shallow(xmlNodePtr tip)
     assert(src_point);
 
     xmlNodePtr n = import_tip(tip);
-    purge_dm(n);
+    try {
+        purge_dm(n);
+    } catch (...) {
+        xmlFreeNode(n);
+        throw;
+    }
     append(n);
 
     xmlNodePtr checked_child = src_point->children;
