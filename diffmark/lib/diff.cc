@@ -358,15 +358,13 @@ void Diff::on_delete(xmlNodePtr n)
 
 xmlNodePtr Diff::new_dm_node(const char *name)
 {
-    xmlNodePtr n = xmlNewNode(dest_ns,
-	reinterpret_cast<const xmlChar *>(name));
+    xmlNodePtr n = xmlNewDocNode(dest, dest_ns,
+	reinterpret_cast<const xmlChar *>(name), nullptr);
     if (!n) {
 	string s = "cannot create ";
 	s += name;
 	throw s;
     }
-
-    xmlSetTreeDoc(n, dest);
 
     return n;
 }

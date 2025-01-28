@@ -37,15 +37,11 @@ xmlNodePtr Target::do_import_node(xmlNodePtr n)
     assert(n->type != XML_DTD_NODE);
     assert(n->type != XML_ENTITY_REF_NODE);
 
-    xmlNodePtr nn = xmlCopyNode(n, 1);
-    if (!nn) {
-	throw string("cannot copy node");
-    }
-
     XDoc dest = get_dest();
 
-    if (n->doc != (xmlDocPtr)dest) {
-	xmlSetTreeDoc(nn, dest);
+    xmlNodePtr nn = xmlDocCopyNode(n, dest, 1);
+    if (!nn) {
+	throw string("cannot copy node");
     }
 
     return nn;
