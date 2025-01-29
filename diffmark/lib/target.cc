@@ -1,5 +1,6 @@
 #include "target.hh"
 #include "xdoc.hh"
+#include "xutil.hh"
 #include <iostream>
 #include <stdlib.h>
 #include <assert.h>
@@ -23,6 +24,11 @@ string Target::get_scoped_name(const char *tail)
     name += ':';
     name += tail;
     return name;
+}
+
+bool Target::equals_scoped_name(const xmlNode *n, const char *tail) const
+{
+    return xutil::node_name_equals(n, get_ns_prefix().c_str(), tail);
 }
 
 xmlNodePtr Target::import_node(xmlNodePtr n)

@@ -39,7 +39,7 @@ public:
     xmlDocPtr diff_nodes(xmlNodePtr m, xmlNodePtr n);
 
 protected:
-    virtual std::string get_ns_prefix() const;
+    virtual const std::string &get_ns_prefix() const;
     virtual XDoc get_dest();
 
 private:    
@@ -61,7 +61,7 @@ private:
     bool combine_pair(xmlNodePtr n, bool reverse);
 
     bool combine_first_child(xmlNodePtr first_child,
-	const std::string &checked_name);
+	const char *checked_name);
 
     void append_insert(xmlNodePtr n);
     void append_delete(xmlNodePtr n);

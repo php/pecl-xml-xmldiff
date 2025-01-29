@@ -89,7 +89,7 @@ Diff::Diff(const std::string &nsprefix, const std::string &nsurl):
 {
 }
 
-string Diff::get_ns_prefix() const
+const string &Diff::get_ns_prefix() const
 {
     return nsprefix;
 }
@@ -185,7 +185,7 @@ void Diff::descend(xmlNodePtr m, xmlNodePtr n)
 
     xmlNodePtr last = seq->last;
     if (last &&
-	(get_node_name(last) == get_scoped_name("delete"))) {
+	equals_scoped_name(last, "delete")) {
 	prune(last);
     }
 }
@@ -235,8 +235,8 @@ bool Diff::combine_pair(xmlNodePtr n, bool reverse)
 	remove_child(last, moved);
     }
 
-    if (combine_first_child(ch, get_scoped_name("delete")) ||
-	combine_first_child(ch, get_scoped_name("insert"))) {
+    if (combine_first_child(ch, "delete") ||
+	combine_first_child(ch, "insert")) {
 	ch = ch->next;
     }
 
@@ -251,15 +251,15 @@ bool Diff::combine_pair(xmlNodePtr n, bool reverse)
 }
 
 bool Diff::combine_first_child(xmlNodePtr first_child,
-    const std::string &checked_name)
+    const char *checked_name)
 {
     xmlNodePtr last = dest_point->last;
     if (!last) {
 	return false;
     }
 
-    if ((get_node_name(last) != checked_name) ||
-	(get_node_name(first_child) != checked_name)) {
+    if (!equals_scoped_name(last, checked_name) ||
+	!equals_scoped_name(first_child, checked_name)) {
 	return false;
     }
 
@@ -302,8 +302,8 @@ void Diff::on_match()
     xmlNodePtr last = dest_point->last;
     if (!last) {
 	append_copy();
-    } else if (get_node_name(last) != get_scoped_name("copy")) {
-	if (get_node_name(last) == get_scoped_name("delete")) {
+    } else if (!equals_scoped_name(last, "copy")) {
+	if (equals_scoped_name(last, "delete")) {
 	    prune(last);
 	}
 	append_copy();
@@ -325,9 +325,9 @@ void Diff::on_insert(xmlNodePtr n)
     xmlNodePtr last = dest_point->last;
     if (!last) {
 	append_insert(n);
-    } else if (get_node_name(last) == get_scoped_name("insert")) {
+    } else if (equals_scoped_name(last, "insert")) {
 	append_child(last, import_node(n));
-    } else if (get_node_name(last) != get_scoped_name("delete")) {
+    } else if (!equals_scoped_name(last, "delete")) {
 	append_insert(n);
     } else {
 	if (!combine_pair(n, false)) {
@@ -344,10 +344,10 @@ void Diff::on_delete(xmlNodePtr n)
     xmlNodePtr last = dest_point->last;
     if (!last) {
 	append_delete(n);
-    } else if (get_node_name(last) == get_scoped_name("delete")) {
+    } else if (equals_scoped_name(last, "delete")) {
 	prune(last);
 	append_child(last, import_node(n));
-    } else if (get_node_name(last) != get_scoped_name("insert")) {
+    } else if (!equals_scoped_name(last, "insert")) {
 	append_delete(n);
     } else {
 	if (!combine_pair(n, true)) {

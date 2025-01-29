@@ -16,7 +16,7 @@ public:
     xmlDocPtr merge(xmlNodePtr diff_node);
 
 protected:
-    virtual std::string get_ns_prefix() const;
+    virtual const std::string &get_ns_prefix() const;
     virtual XDoc get_dest();
 
 private:

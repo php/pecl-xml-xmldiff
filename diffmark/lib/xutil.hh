@@ -17,6 +17,8 @@ XDoc parse_file(const char *fname);
 
 std::string get_node_name(xmlNodePtr n);
 
+bool node_name_equals(const xmlNode *n, const char *prefix, const char *local_name);
+
 void append_child(xmlNodePtr ex_parent, xmlNodePtr new_child);
 
 void remove_child(xmlNodePtr parent, xmlNodePtr child);
