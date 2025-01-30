@@ -312,7 +312,7 @@ PHP_MINFO_FUNCTION(xmldiff)
 #ifdef HAVE_LIBDIFFMARK
 	php_info_print_table_header(2, "diffmark library", "system");
 #else
-	php_info_print_table_header(2, "diffmark library", "0.10 bundled");
+	php_info_print_table_header(2, "diffmark library", "0.10 bundled (patch level 1)");
 #endif
 	php_info_print_table_row(2, "Revision", "$Id$");
 	php_info_print_table_end();
