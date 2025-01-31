@@ -186,6 +186,15 @@ string xutil::get_node_name(xmlNodePtr n)
     return out;
 }
 
+bool xutil::node_name_equals(const xmlNode *n, const char *prefix, const char *local_name)
+{
+    if (!n->ns) {
+        return false;
+    }
+    return xmlStrEqual(n->name, reinterpret_cast<const xmlChar *>(local_name))
+        && xmlStrEqual(n->ns->prefix, reinterpret_cast<const xmlChar *>(prefix));
+}
+
 void xutil::append_child(xmlNodePtr ex_parent, xmlNodePtr new_child)
 {
     assert(ex_parent != 0);

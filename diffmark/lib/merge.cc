@@ -52,7 +52,7 @@ xmlDocPtr Merge::merge(xmlNodePtr diff_node)
     return dest.yank();
 }
 
-std::string Merge::get_ns_prefix() const
+const std::string &Merge::get_ns_prefix() const
 {
     assert(!nsprefix.empty()); // don't call this function too soon
     return nsprefix;
@@ -67,14 +67,13 @@ void Merge::do_merge(xmlNodePtr tree)
 {
     assert(tree);
 
-    string name = get_node_name(tree);
-    TRACE("do_merge(" << name << ')');
+    TRACE("do_merge(" << get_node_name(tree) << ')');
 
-    if (name == get_scoped_name("delete")) {
+    if (equals_scoped_name(tree, "delete")) {
 	handle_delete(tree);
-    } else if (name == get_scoped_name("copy")) {
+    } else if (equals_scoped_name(tree, "copy")) {
 	handle_copy(tree);
-    } else if (name == get_scoped_name("insert")) {
+    } else if (equals_scoped_name(tree, "insert")) {
 	handle_insert(tree);
     } else {
 	if (tree->ns &&
@@ -279,10 +278,9 @@ string Merge::init_ns_prefix(xmlNodePtr diff_node)
 
 void Merge::check_top_node_name(xmlNodePtr diff_node)
 {
-    string actual = get_node_name(diff_node);
-    if (actual != get_scoped_name("diff")) {
+    if (!equals_scoped_name(diff_node, "diff")) {
 	string s = "invalid document node ";
-	s += actual;
+	s += get_node_name(diff_node);
 	throw s;
     }
 }
