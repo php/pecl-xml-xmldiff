@@ -16,6 +16,12 @@
 		<email>derick@php.net</email>
 		<active>yes</active>
 	</lead>
+	<lead>
+		<name>Niels Dossche</name>
+		<user>nielsdos</user>
+		<email>dossche.niels@gmail.com</email>
+		<active>yes</active>
+	</lead>
 	<date>2024-11-27</date>
 	<version>
 		<release>1.1.5</release>
