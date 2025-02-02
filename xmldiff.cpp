@@ -519,7 +519,7 @@ php_xmldiff_is_valid_dom_obj(zval *arg, const char *name TSRMLS_DC)
 		zend_throw_exception_ex(
 				XMLDiffException_ce,
 				PHP_XMLDIFF_THROW_INVALID_DOM_OBJECT TSRMLS_CC,
-				"Expected the $%s argument to be an instance of DOMDocument",
+				"Expected the $%s argument to be an instance of DOMNode",
 				name
 		);
 		return 0;
@@ -588,7 +588,7 @@ PHP_METHOD(XMLDiffBase, merge)
 {
 }/*}}}*/
 
-/*{{{  public DOMDocument XMLDiff\DOM::diff(DOMDocument $from, DOMDocument $to) */
+/*{{{  public DOMDocument XMLDiff\DOM::diff(DOMNode $from, DOMNode $to) */
 PHP_METHOD(XMLDiffDOM, diff)
 {
 	struct ze_xmldiff_obj *zxo;
@@ -647,7 +647,7 @@ PHP_METHOD(XMLDiffDOM, diff)
 	xmlKeepBlanksDefault(old_keep_blanks);
 }/*}}}*/
 
-/*{{{ public DOMDocument XMLDiff\DOM::merge(DOMDocument $m, DOMDocument $to) */
+/*{{{ public DOMDocument XMLDiff\DOM::merge(DOMNode $m, DOMNode $to) */
 PHP_METHOD(XMLDiffDOM, merge)
 {
 	struct ze_xmldiff_obj *zxo;
