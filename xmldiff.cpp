@@ -570,10 +570,13 @@ PHP_METHOD(XMLDiffBase, __construct)
 	zxo = (struct ze_xmldiff_obj *) zend_object_store_get_object(getThis() TSRMLS_CC);
 #endif
 
+	efree(zxo->nsurl);
+
 	if (nsurl_len > 0) {
 		zxo->nsurl = estrdup(nsurl);
+	} else {
+		zxo->nsurl = NULL;
 	}
-
 } /* }}} */
 
 /*{{{ abstract public mixed XMLDiff\Base::diff(mixed $from, mixed $to) */
