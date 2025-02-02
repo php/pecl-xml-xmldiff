@@ -22,6 +22,8 @@ if test "$PHP_XMLDIFF" != "no"; then
     AC_MSG_ERROR([XMLDiff extension requires DOM extension])
   fi
 
+  XMLDIFF_CFLAGS="-Wall"
+
   if test "$PHP_LIBDIFFMARK" != "no"; then
     SEARCH_PATH="/usr /usr/local"
     SEARCH_FOR="/include/diffmark/diff.hh"
@@ -50,7 +52,7 @@ if test "$PHP_XMLDIFF" != "no"; then
     PHP_SETUP_LIBXML(XMLDIFF_SHARED_LIBADD, [
       AC_DEFINE(HAVE_XMLDIFF,1,[ ])
       PHP_SUBST(XMLDIFF_SHARED_LIBADD)
-      PHP_NEW_EXTENSION(xmldiff, xmldiff.cpp, $ext_shared)
+      PHP_NEW_EXTENSION(xmldiff, xmldiff.cpp, $ext_shared,, $XMLDIFF_CFLAGS)
       PHP_ADD_EXTENSION_DEP(xmldiff, dom, true)
       PHP_ADD_EXTENSION_DEP(xmldiff, libxml, true)
       PHP_ADD_INCLUDE($ext_srcdir/simplexml_compat)
@@ -74,7 +76,7 @@ if test "$PHP_XMLDIFF" != "no"; then
     PHP_SETUP_LIBXML(XMLDIFF_SHARED_LIBADD, [
       AC_DEFINE(HAVE_XMLDIFF,1,[ ])
       PHP_SUBST(XMLDIFF_SHARED_LIBADD)
-      PHP_NEW_EXTENSION(xmldiff, $PHP_DIFFMARK_SOURCES xmldiff.cpp, $ext_shared)
+      PHP_NEW_EXTENSION(xmldiff, $PHP_DIFFMARK_SOURCES xmldiff.cpp, $ext_shared,, $XMLDIFF_CFLAGS)
       PHP_ADD_EXTENSION_DEP(xmldiff, dom, true)
       PHP_ADD_EXTENSION_DEP(xmldiff, libxml, true)
       PHP_ADD_BUILD_DIR($ext_builddir/diffmark/lib)

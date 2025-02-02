@@ -44,6 +44,8 @@ int compare(xmlNodePtr m, xmlNodePtr n, bool deep)
 	return compare_content(m, n);
     case XML_PI_NODE:
 	return compare_pi(m, n);
+    default:
+	break;
     }
 
     stringstream s;

@@ -597,6 +597,7 @@ PHP_METHOD(XMLDiffDOM, diff)
 	xmlDocPtr fromXmlDoc, toXmlDoc, retDoc;
 	int domRetStatus, old_keep_blanks;
 	xmlNodePtr retNode;
+	(void) domRetStatus;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "oo", &zfrom, &zto) == FAILURE) {
 		return;
@@ -656,6 +657,7 @@ PHP_METHOD(XMLDiffDOM, merge)
 	xmlDocPtr srcXmlDoc, diffXmlDoc, retDoc;
 	int domRetStatus, old_keep_blanks;
 	xmlNodePtr retNode;
+	(void) domRetStatus;
 
 	if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "oo", &zsrc, &zdiff) == FAILURE) {
 		return;
