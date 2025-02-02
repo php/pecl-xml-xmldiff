@@ -183,8 +183,6 @@ php_xmldiff_object_init(zend_class_entry *ce)
 	zend_object_std_init(&zxo->zo, ce);
 	zxo->zo.handlers = &default_xmldiff_handlers;
 
-	zxo->nsurl = NULL;
-
 	return &zxo->zo;
 }/*}}}*/
 #else
