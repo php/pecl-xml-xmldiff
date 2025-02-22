@@ -110,7 +110,7 @@ struct ze_xmldiff_obj {
 };
 #endif
 
-#define PHP_XMLDIFF_VERSION "1.1.5"
+#define PHP_XMLDIFF_VERSION "1.1.6-dev"
 
 PHP_MINIT_FUNCTION(xmldiff);
 PHP_MSHUTDOWN_FUNCTION(xmldiff);

@@ -24,7 +24,7 @@
 	</lead>
 	<date>2025-02-22</date>
 	<version>
-		<release>1.1.5</release>
+		<release>1.1.6</release>
 		<api>0.10.0</api>
 	</version>
 	<stability>
@@ -33,8 +33,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- Fix various memory leaks (nielsdos)
-		- Improve comparison performance (nielsdos)
+		- TODO
 	</notes>
 	<contents>
 		<dir name="/">
@@ -291,6 +290,22 @@
 	<providesextension>xmldiff</providesextension>
 	<extsrcrelease />
 	<changelog>
+		<release>
+			<date>2025-02-22</date>
+			<version>
+				<release>1.1.5</release>
+				<api>0.10.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fix various memory leaks (nielsdos)
+				- Improve comparison performance (nielsdos)
+			</notes>
+		</release>
 		<release>
 			<date>2024-11-27</date>
 			<version>
