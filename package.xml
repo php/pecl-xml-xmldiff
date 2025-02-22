@@ -76,6 +76,7 @@
 			</dir>
 			<dir name="tests">
 <!-- {{{ -->
+				<file role="test" name="blanks_preserving.phpt" />
 				<file role="test" name="xmldiff_dom_failmerge.phpt" />
 				<file role="test" name="xmldiff_memory_failmerge.phpt" />
 				<file role="test" name="xmldiff_dom_diff.phpt" />
@@ -92,6 +93,7 @@
 				<file role="test" name="xmldiff_file_failmerge.phpt" />
 				<file role="test" name="xmldiff_dom_merge.phpt" />
 				<file role="test" name="xmldiff_dom_roundup.phpt" />
+				<file role="test" name="xmldiffbase_construct_twice.phpt" />
 				<dir name="testdata">
 					<dir name="diff">
 						<file role="test" name="00a.xml" />
