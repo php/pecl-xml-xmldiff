@@ -278,7 +278,7 @@ PHP_MINIT_FUNCTION(xmldiff)
 
 	INIT_CLASS_ENTRY(ce, "XMLDiff\\Exception", NULL);
 #if PHP_MAJOR_VERSION >= 7
-	XMLDiffException_ce = zend_register_internal_class_ex(&ce, zend_exception_get_default());
+	XMLDiffException_ce = zend_register_internal_class_ex(&ce, zend_ce_exception);
 #else
 	XMLDiffException_ce = zend_register_internal_class_ex(
 		&ce, NULL, "exception" TSRMLS_CC
