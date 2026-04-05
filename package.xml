@@ -22,9 +22,9 @@
 		<email>dossche.niels@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2025-02-22</date>
+	<date>2025-12-19</date>
 	<version>
-		<release>1.1.6</release>
+		<release>1.1.7</release>
 		<api>0.10.0</api>
 	</version>
 	<stability>
@@ -33,7 +33,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- Fix PHP 8.5 compatibility (Remi Collet)
+		- TODO
 	</notes>
 	<contents>
 		<dir name="/">
@@ -290,6 +290,21 @@
 	<providesextension>xmldiff</providesextension>
 	<extsrcrelease />
 	<changelog>
+		<release>
+			<date>2025-12-19</date>
+			<version>
+				<release>1.1.6</release>
+				<api>0.10.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fix PHP 8.5 compatibility (Remi Collet)
+			</notes>
+		</release>
 		<release>
 			<date>2025-02-22</date>
 			<version>
