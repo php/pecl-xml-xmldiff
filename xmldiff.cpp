@@ -243,7 +243,7 @@ PHP_MINIT_FUNCTION(xmldiff)
 	memcpy(&default_xmldiff_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
 	default_xmldiff_handlers.clone_obj = NULL;
 #if PHP_MAJOR_VERSION >= 7
-	default_xmldiff_handlers.offset = XtOffsetOf(struct ze_xmldiff_obj, zo);
+	default_xmldiff_handlers.offset = offsetof(struct ze_xmldiff_obj, zo);
 	default_xmldiff_handlers.free_obj = php_xmldiff_obj_destroy;
 #endif
 
