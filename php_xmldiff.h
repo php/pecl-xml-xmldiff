@@ -101,7 +101,7 @@ struct ze_xmldiff_obj {
 static zend_always_inline struct ze_xmldiff_obj *
 php_xmldiff_fetch_obj(zend_object *obj)
 {/*{{{*/
-	return (struct ze_xmldiff_obj *)((char *)obj - XtOffsetOf(struct ze_xmldiff_obj, zo));
+	return (struct ze_xmldiff_obj *)((char *)obj - offsetof(struct ze_xmldiff_obj, zo));
 }/*}}}*/
 #else
 struct ze_xmldiff_obj {
